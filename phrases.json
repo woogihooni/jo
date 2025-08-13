@@ -108,6 +108,191 @@
               "speaker": "19",
               "korean": "중국 최초의 신선사상 정원",
               "japanese": "진나라-난지궁의 난지"
+            },
+            {
+              "speaker": "20",
+              "korean": "유상곡수",
+              "japanese": "왕희지-포석정"
+            },
+            {
+              "speaker": "21",
+              "korean": "안빈낙도",
+              "japanese": "도연명"
+            },
+            {
+              "speaker": "22",
+              "korean": "중국 정원 전성기",
+              "japanese": "명나라"
+            },
+            {
+              "speaker": "23",
+              "korean": "중국의 동양최초 서양식 정원",
+              "japanese": "원명원"
+            },
+            {
+              "speaker": "24",
+              "korean": "일본 정원 양식",
+              "japanese": "임천식-축산고산수식-평정고산수식-다정양식-지천임천식"
+            },
+            {
+              "speaker": "25",
+              "korean": "백제유민, 수미산, 오교, 아스카시대",
+              "japanese": "노자공"
+            },
+            {
+              "speaker": "26",
+              "korean": "사절우",
+              "japanese": "매송국죽"
+            },
+            {
+              "speaker": "27",
+              "korean": "궁남지",
+              "japanese": "백제"
+            },
+            {
+              "speaker": "28",
+              "korean": "신라",
+              "japanese": "안압지"
+            },
+            {
+              "speaker": "29",
+              "korean": "귀족들의 별장",
+              "japanese": "사절유택"
+            },
+            {
+              "speaker": "30",
+              "korean": "고려시대 원/포 담당하는 관청",
+              "japanese": "내원서"
+            },
+            {
+              "speaker": "31",
+              "korean": "조선시대 정원 담당 관청",
+              "japanese": "상림원 → 장원서(화초, 과일)"
+            },
+            {
+              "speaker": "32",
+              "korean": "조선시대 원포/채소 재배",
+              "japanese": "사포서"
+            },
+            {
+              "speaker": "33",
+              "korean": "화문장, 십장생 굴툭, 대비기거",
+              "japanese": "자경전"
+            },
+            {
+              "speaker": "34",
+              "korean": "동궐, 비원, 금원 후원, 유네스코 문화유산",
+              "japanese": "창덕궁"
+            },
+            {
+              "speaker": "35",
+              "korean": "창덕궁내 민가형식, 5단화계, 화목, 괴석, 세심석, 석상, 굴뚝",
+              "japanese": "낙선재"
+            },
+            {
+              "speaker": "36",
+              "korean": "우리나라 최초 서양식 정원: 프랑스식 정원",
+              "japanese": "덕수궁"
+            },
+            {
+              "speaker": "37",
+              "korean": "양산보 소세원",
+              "japanese": "제월당, 광풍각, 애양단, 대봉대"
+            },
+            {
+              "speaker": "38",
+              "korean": "보길도 별서정원, 낙서재,동천석실, 세연정",
+              "japanese": " 윤선도 부용동 정원"
+            },
+            {
+              "speaker": "39",
+              "korean": "궁궐, 서원, 사찰, 불 밝히는 시설물",
+              "japanese": "정료대"
+            },
+            {
+              "speaker": "40",
+              "korean": "손 씻는 대야 올리는 석조물",
+              "japanese": " 관세단"
+            },
+            {
+              "speaker": "41",
+              "korean": "제사때 양, 염소등 고기 적합성 품평",
+              "japanese": "생단"
+            },
+            {
+              "speaker": "42",
+              "korean": "강희안, 화목재배, 화목구품(품격과 상징성)",
+              "japanese": "양화소록"
+            },
+            {
+              "speaker": "43",
+              "korean": "조경설계의 3요소",
+              "japanese": " \"기능",
+              "japanese_html": " 미",
+              "pronunciation": " 환경\"",
+              "null": [
+                "",
+                ""
+              ]
+            },
+            {
+              "speaker": "44",
+              "korean": "조경계획시 조사 분석 원인 3가지",
+              "japanese": " \"① 물리",
+              "japanese_html": " 생태학적 (자연적 인자)",
+              "pronunciation": " ② 시각",
+              "null": [
+                " 대략적 관계(미학적 인자)",
+                " ③사회",
+                " 행태적 분석 (인문",
+                " 사회적 인자)\"",
+                "",
+                ""
+              ]
+            },
+            {
+              "speaker": "45",
+              "korean": "토양 성분",
+              "japanese": "흙입자(50%), 물(25%), 공기(25%)"
+            },
+            {
+              "speaker": "46",
+              "korean": "토양 구분 3요소",
+              "japanese": "미사, 모래, 점토"
+            },
+            {
+              "speaker": "4",
+              "korean": "생태자연도 축적",
+              "japanese": "1/25000"
+            },
+            {
+              "speaker": "4",
+              "korean": "생태조사 정방형의 조사지역",
+              "japanese": "쿼드라트법"
+            },
+            {
+              "speaker": "4",
+              "korean": "리튼 시각회랑에 의한 경관특성 경관종류",
+              "japanese": "전경관,지형경관,위요경관,초점경관,관개경관,세부경관,일시경관"
+            },
+            {
+              "speaker": "5",
+              "korean": "리튼 경관 우세요소",
+              "japanese": "선, 형태, 색책, 질감"
+            },
+            {
+              "speaker": "5",
+              "korean": "린치 도시 이미지 5가지",
+              "japanese": "path, edges, nodes, districts, landmark"
+            },
+            {
+              "speaker": "5"
+            },
+            {
+              "speaker": "5"
+            },
+            {
+              "speaker": "5"
             }
           ]
         }
