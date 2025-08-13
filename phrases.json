@@ -2,32 +2,112 @@
   "app_title": "초보 여행자를 위한 일본어 회화",
   "data": [
     {
-      "main_category_title": "길 찾기",
+      "main_category_title": "조경",
       "sub_situations": [
         {
-          "title": "지하철",
+          "title": "필답형",
           "dialogues": [
             {
-              "speaker": "A: 여행객",
-              "korean": "죄송합니다, 도쿄역은 어디예요?",
-              "japanese": "すみません、東京駅はどこですか？",
-              "japanese_html": "すみません、<ruby>東京駅<rt>とうきょうえき</rt></ruby>はどこですか？",
-              "pronunciation": "스미마셍",
+              "speaker": "1",
+              "korean": "페리",
+              "japanese": "근린주구"
+            },
+            {
+              "speaker": "2",
+              "korean": "쿨데삭",
+              "japanese": "정의"
+            },
+            {
+              "speaker": "3",
+              "korean": "하워드",
+              "japanese": "전원도시론"
+            },
+            {
+              "speaker": "4",
+              "korean": "고대 메소포타미아 운하, 신전, 도시공원, 최초의 도시계획",
+              "japanese": "나푸르 점토판"
+            },
+            {
+              "speaker": "5",
+              "korean": "사분원, 지상낙원 정원",
+              "japanese": "파라다이스 가든"
+            },
+            {
+              "speaker": "6",
+              "korean": "이집트",
+              "japanese": "동쪽-예배신전, 서쪽-장제신전"
+            },
+            {
+              "speaker": "7",
+              "korean": "현존 최고 정원, 3단 노단, 램프, 열주랑",
+              "japanese": "핫셉수트 장제신전",
               "null": [
-                " 토-쿄-에키와 도코데스까?"
+                ""
               ]
-            }
-          ]
-        },
-        {
-          "title": "택시",
-          "dialogues": [
+            },
             {
-              "speaker": "B: 기사",
-              "korean": "어디로 가시겠어요?",
-              "japanese": "どちらまで？",
-              "japanese_html": "どちらまで？",
-              "pronunciation": "도치라마데?"
+              "speaker": "8",
+              "korean": "로마정원",
+              "japanese": "아트리움-페리스틸리움-지스터스"
+            },
+            {
+              "speaker": "9",
+              "korean": "중세정원",
+              "japanese": "수도원정원",
+              "japanese_html": " 성관정원",
+              "null": [
+                ""
+              ]
+            },
+            {
+              "speaker": "10",
+              "korean": "중세정원중 예배당 남쪽에 위치한 사각의 공간으로 승려들의 휴식과 사교장소 중심에 파라다이소",
+              "japanese": "클로이스터 가든"
+            },
+            {
+              "speaker": "11",
+              "korean": "알함브라 궁전",
+              "japanese": "알베르카 중전, 사자의 중전, 다라하의 중전, 레하의 중전"
+            },
+            {
+              "speaker": "12",
+              "korean": "이탈리의 정원 3대요소",
+              "japanese": "총림, 테라스, 화단"
+            },
+            {
+              "speaker": "13",
+              "korean": "이탈리아 3대정원",
+              "japanese": "에스테르장-4단테라스/물풍금/백색카지노, 란테장-돌고래/거인의 분천, 파르네제장:5각 카지노"
+            },
+            {
+              "speaker": "14",
+              "korean": "비스타, 원근법, 로노트르 출세작",
+              "japanese": "보르비공트"
+            },
+            {
+              "speaker": "15",
+              "korean": "베르사유궁전",
+              "japanese": "거울의방-물화단-라토나분수-왕자의 가든- 아폴러분수-대수로"
+            },
+            {
+              "speaker": "16",
+              "korean": "영국 3대 조경가",
+              "japanese": "켄트, 브라운, 랩턴"
+            },
+            {
+              "speaker": "17",
+              "korean": "조셉펙스턴",
+              "japanese": "버큰헤드 파크"
+            },
+            {
+              "speaker": "18",
+              "korean": "하하 수법",
+              "japanese": "브릿지맨-스토우가든"
+            },
+            {
+              "speaker": "19",
+              "korean": "중국 최초의 신선사상 정원",
+              "japanese": "진나라-난지궁의 난지"
             }
           ]
         }
