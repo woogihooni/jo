@@ -1,0 +1,159 @@
+/* 공통 스타일 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    line-height: 1.4;
+    margin: 0;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+main {
+    width: 100%;
+    max-width: 600px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 메인/서브 카테고리 버튼 스타일 */
+.main-category-button, .sub-situation-button {
+    width: 100%;
+    padding: 20px;
+    font-size: 1.2rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.main-category-button:hover, .sub-situation-button:hover {
+    background-color: #e8f0fe;
+}
+
+/* 뒤로가기 버튼 스타일 */
+.back-button {
+    width: 150px;
+    padding: 10px;
+    margin: 20px auto 0;
+    font-size: 1rem;
+    background-color: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #7f8c8d;
+}
+
+/* 대화 상자 스타일 */
+.dialogue-box {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.dialogue-box:active {
+    transform: scale(0.98);
+}
+
+.dialogue-box .speaker {
+    font-weight: bold;
+    color: #2980b9;
+    margin: 0;
+}
+
+.dialogue-box .korean {
+    font-size: 1.1rem;
+    margin: 10px 0 0 0;
+}
+
+.dialogue-box .japanese-content {
+    display: none;
+}
+.dialogue-box .japanese {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0 0 0;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    cursor: pointer;
+}
+
+.dialogue-box .japanese ruby rt {
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #95a5a6;
+}
+.dialogue-box .pronunciation {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0 0 0;
+}
+
+/* 대체 단어 버튼 스타일 */
+.replacements-container {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.replacement-button {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+}
+
+.replacement-button:hover {
+    background-color: #e0e0e0;
+}
+
+.replacement-button.selected {
+    background-color: #2980b9;
+    color: white;
+    border-color: #2980b9;
+}
