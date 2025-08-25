@@ -1,4 +1,4 @@
-/* 기본 설정 */
+/* 기본 설정 (다크모드) */
 body {
     font-family: Arial, sans-serif;
     background-color: #121212;
@@ -9,66 +9,77 @@ body {
     min-height: 100vh;
     margin: 0;
     transition: background-color 0.5s, color 0.5s;
+    font-size: 16px; /* 기본 폰트 크기 설정 */
 }
 
 .container {
     text-align: center;
     background-color: #1e1e1e;
-    padding: 40px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     max-width: 800px;
-    width: 90%;
-    margin: 20px auto;
+    width: 95%; /* 모바일에서 더 넓게 사용 */
+    margin: 10px auto;
     transition: background-color 0.5s, box-shadow 0.5s;
 }
 
-.main-title { color: #f0f0f0; }
-.sub-title { color: #bdbdbd; }
+.main-title { 
+    color: #f0f0f0;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+.sub-title { 
+    color: #bdbdbd;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
 
 /* 과목 선택 영역 */
 .subject-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin-bottom: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* 최소 크기 조정 */
+    gap: 10px;
+    margin-bottom: 15px;
 }
 .subject-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px;
+    padding: 12px;
     border-radius: 8px;
     background-color: #2c2c2c;
     border: 1px solid #444;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 0.9em;
 }
 .subject-item:hover {
     background-color: #383838;
 }
 .subject-item input[type="checkbox"] {
-    margin-right: 10px;
+    margin-right: 8px;
     accent-color: #007bff;
 }
 
-/* 버튼 스타일 */
+/* 버튼 스타일 (전반적으로 크기 조절) */
 .action-btn {
-    padding: 15px 30px;
-    margin: 10px;
-    font-size: 1.1em;
+    padding: 12px 20px;
+    margin: 5px;
+    font-size: 0.9em;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s;
     color: #fff;
+    white-space: nowrap; /* 버튼 텍스트가 줄바꿈되지 않도록 */
 }
 
 #start-normal-quiz-btn { background-color: #007bff; }
 #start-normal-quiz-btn:hover { background-color: #0056b3; }
 
-#start-checked-quiz-btn { background-color: #6c757d; }
-#start-checked-quiz-btn:hover { background-color: #5a6268; }
+#start-checked-quiz-btn, .secondary-btn { background-color: #6c757d; }
+#start-checked-quiz-btn:hover, .secondary-btn:hover { background-color: #5a6268; }
 
 #resume-quiz-btn, #resume-checked-quiz-btn { background-color: #6f42c1; }
 #resume-quiz-btn:hover, #resume-checked-quiz-btn:hover { background-color: #5b3997; }
@@ -79,45 +90,49 @@ body {
 #next-question-btn { background-color: #17a2b8; }
 #next-question-btn:hover { background-color: #138496; }
 
-.secondary-btn { background-color: #6c757d; }
-.secondary-btn:hover { background-color: #5a6268; }
+#copy-problem-btn { background-color: #007bff; }
+#copy-problem-btn:hover { background-color: #0056b3; }
 
 .small-btn {
-    padding: 10px 20px;
-    font-size: 0.9em;
-    margin-left: 10px;
+    padding: 10px 15px;
+    font-size: 0.8em;
 }
 
 /* 문제 풀이 화면 스타일 */
+#quiz-container {
+    padding: 15px;
+}
+
 .question-text {
     background-color: #2c2c2c;
     border: 1px solid #444;
-    padding: 25px;
+    padding: 20px;
     border-radius: 8px;
-    line-height: 1.6;
+    line-height: 1.5;
     text-align: left;
     white-space: pre-wrap;
     transition: background-color 0.5s, border-color 0.5s;
-}
-
-.question-text .blank {
-    border-bottom: 2px solid #666;
-    padding: 0 5px;
+    font-size: 1em;
 }
 
 .answer-area {
-    margin: 20px 0;
-    padding: 15px;
+    margin: 15px 0;
+    padding: 10px;
     background-color: #2c2c2c;
     border-radius: 8px;
-    min-height: 50px;
+    min-height: 40px;
     text-align: left;
     transition: background-color 0.5s;
+    font-size: 0.9em;
+}
+
+.notes-section {
+    margin-top: 20px;
 }
 
 #notes-input {
     width: 100%;
-    height: 100px;
+    height: 80px;
     background-color: #2c2c2c;
     border: 1px solid #444;
     color: #e0e0e0;
@@ -125,30 +140,62 @@ body {
     border-radius: 8px;
     resize: vertical;
     transition: background-color 0.5s, border-color 0.5s;
+    box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
 }
+
 .problem-options {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-.question-header {
+.answer-section {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; /* 버튼이 한 줄에 안 들어가면 자동으로 줄바꿈 */
+    gap: 10px;
+    margin: 10px 0;
 }
 
-#copy-problem-btn {
-    background-color: #007bff;
-    color: white;
-    white-space: nowrap;
-    height: fit-content;
-}
+/* 미디어 쿼리: 작은 화면 (예: 스마트폰)에 대한 최적화 */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px;
+        margin: 5px auto;
+    }
+    
+    .main-title {
+        font-size: 1.5em;
+    }
+    
+    .action-btn {
+        width: 100%;
+        margin: 5px 0;
+        padding: 10px;
+        font-size: 1em;
+    }
 
-#copy-problem-btn:hover {
-    background-color: #0056b3;
+    .small-btn {
+        width: auto;
+        padding: 8px 12px;
+        font-size: 0.8em;
+    }
+
+    .subject-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* 더 작은 그리드 */
+    }
+
+    .answer-section {
+        flex-direction: column; /* 버튼을 세로로 정렬 */
+    }
+    
+    #copy-problem-btn {
+        width: 100%;
+        margin-top: 5px;
+    }
 }
