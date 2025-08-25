@@ -75,11 +75,26 @@ body {
     white-space: nowrap;
 }
 
+/* 주 버튼 색상 */
 #start-normal-quiz-btn { background-color: #007bff; }
 #start-normal-quiz-btn:hover { background-color: #0056b3; }
 
-#start-checked-quiz-btn, .secondary-btn { background-color: #6c757d; }
-#start-checked-quiz-btn:hover, .secondary-btn:hover { background-color: #5a6268; }
+/* 보조/일반 버튼 색상 (체크문제 풀기, 메인으로) */
+#start-checked-quiz-btn, 
+#start-checked-quiz-select-btn,
+.secondary-btn,
+#export-notes-btn,
+#save-notes-btn { 
+    background-color: #6c757d; 
+}
+#start-checked-quiz-btn:hover, 
+#start-checked-quiz-select-btn:hover,
+.secondary-btn:hover,
+#export-notes-btn:hover,
+#save-notes-btn:hover { 
+    background-color: #5a6268; 
+}
+
 
 #resume-quiz-btn, #resume-checked-quiz-btn { background-color: #6f42c1; }
 #resume-quiz-btn:hover, #resume-checked-quiz-btn:hover { background-color: #5b3997; }

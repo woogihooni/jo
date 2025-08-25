@@ -165,6 +165,9 @@ function displayQuestion() {
     showAnswerBtn.style.display = 'block';
     nextQuestionBtn.style.display = 'none';
     notesInput.value = savedNotes[qId] || '';
+    
+    // 이전에 보여준 정답 카운트 초기화
+    question.answers_shown_count = 0;
 
     checkProblemBox.checked = checkedProblems[qId] !== undefined;
 
@@ -183,6 +186,7 @@ function showAnswer() {
 
     if (question.answers_shown_count < question.answers.length) {
         const answer = question.answers[question.answers_shown_count];
+        // 정규식을 사용해 빈칸을 찾고, 올바른 정답을 채워넣음
         const blankRegex = new RegExp(`（\\s*${answer.part.slice(0, 1)}.*?\\s*）`, 'g');
         
         questionTextEl.innerHTML = questionTextEl.innerHTML.replace(blankRegex, `<span class="filled-blank" style="color:#28a745;">${answer.part.slice(2)}</span>`);
