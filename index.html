@@ -16,8 +16,17 @@
         <button id="start-normal-quiz-btn" class="action-btn">문제풀기 (선택과목)</button>
         <button id="start-checked-quiz-btn" class="action-btn secondary-btn">체크문제 풀기</button>
         <button id="resume-quiz-btn" class="action-btn" style="display:none;">마지막 문제 이어 풀기</button>
-        <button id="resume-checked-quiz-btn" class="action-btn" style="display:none;">마지막 체크문제 이어 풀기</button>
         <button id="export-notes-btn" class="action-btn small-btn" style="margin-top: 20px;">주의사항 내보내기</button>
+    </div>
+
+    <div id="checked-subject-screen" class="container" style="display: none;">
+        <h1 class="main-title">체크문제 풀이</h1>
+        <h2 class="sub-title">과목을 선택해주세요</h2>
+        <div id="checked-subject-list" class="subject-grid">
+            </div>
+        <button id="start-checked-quiz-select-btn" class="action-btn">문제풀기 (선택과목)</button>
+        <button id="resume-checked-quiz-btn" class="action-btn" style="display:none;">마지막 체크문제 이어 풀기</button>
+        <button id="back-to-main-btn" class="action-btn secondary-btn">메인으로</button>
     </div>
 
     <div id="quiz-container" class="container" style="display: none;">
@@ -34,7 +43,7 @@
         <div class="answer-section">
             <div id="answer-area" class="answer-area"></div>
             <button id="show-answer-btn" class="action-btn">정답 보기</button>
-            <button id="copy-problem-btn" class="action-btn small-btn">문제 및 정답 복사</button>
+            <button id="copy-problem-btn" class="action-btn">본문 복사</button>
             <button id="next-question-btn" class="action-btn" style="display: none;">다음 문제</button>
         </div>
 

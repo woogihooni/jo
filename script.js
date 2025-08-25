@@ -4,16 +4,23 @@ let currentQuestions = [];
 let currentQuestionIndex = 0;
 let currentQuizMode = 'normal'; // 'normal' or 'checked'
 
-const subjectListDiv = document.getElementById('subject-list');
 const subjectSelectionScreen = document.getElementById('subject-selection-screen');
+const checkedSubjectScreen = document.getElementById('checked-subject-screen');
 const quizContainer = document.getElementById('quiz-container');
+
+const subjectListDiv = document.getElementById('subject-list');
+const checkedSubjectListDiv = document.getElementById('checked-subject-list');
 
 const startNormalQuizBtn = document.getElementById('start-normal-quiz-btn');
 const startCheckedQuizBtn = document.getElementById('start-checked-quiz-btn');
 const resumeQuizBtn = document.getElementById('resume-quiz-btn');
-const resumeCheckedQuizBtn = document.getElementById('resume-checked-quiz-btn');
-const goHomeBtn = document.getElementById('go-home-btn');
 const exportNotesBtn = document.getElementById('export-notes-btn');
+
+const startCheckedQuizSelectBtn = document.getElementById('start-checked-quiz-select-btn');
+const resumeCheckedQuizBtn = document.getElementById('resume-checked-quiz-btn');
+const backToMainBtn = document.getElementById('back-to-main-btn');
+
+const goHomeBtn = document.getElementById('go-home-btn');
 
 const currentSubjectTitle = document.getElementById('current-subject-title');
 const questionNumberEl = document.getElementById('question-number');
@@ -49,6 +56,10 @@ async function fetchQuestions() {
 
 // 과목 선택 화면 로드
 function loadSubjectSelection() {
+    subjectSelectionScreen.style.display = 'block';
+    checkedSubjectScreen.style.display = 'none';
+    quizContainer.style.display = 'none';
+
     const subjects = [...new Set(allQuestions.map(q => q.subject))];
     subjectListDiv.innerHTML = subjects.map(subject => `
         <label class="subject-item">
@@ -56,72 +67,82 @@ function loadSubjectSelection() {
         </label>
     `).join('');
 
-    // 마지막 문제 이어 풀기 버튼 상태 업데이트 및 텍스트 변경
     if (lastNormalQuiz) {
         resumeQuizBtn.style.display = 'inline-block';
         resumeQuizBtn.textContent = `마지막 문제 이어 풀기(${lastNormalQuiz.subject}, ${lastNormalQuiz.questionNumber})`;
     } else {
         resumeQuizBtn.style.display = 'none';
     }
+}
+
+// 체크 문제 과목 선택 화면 로드
+function loadCheckedSubjectSelection() {
+    subjectSelectionScreen.style.display = 'none';
+    checkedSubjectScreen.style.display = 'block';
+    quizContainer.style.display = 'none';
+
+    const checkedSubjects = [...new Set(Object.keys(checkedProblems).map(qId => qId.split('-')[0]))];
     
-    if (lastCheckedQuiz) {
-        resumeCheckedQuizBtn.style.display = 'inline-block';
-        resumeCheckedQuizBtn.textContent = `마지막 체크문제 이어 풀기(${lastCheckedQuiz.subject}, ${lastCheckedQuiz.questionNumber})`;
-    } else {
+    if (checkedSubjects.length === 0) {
+        checkedSubjectListDiv.innerHTML = '<p>체크한 문제가 없습니다.</p>';
+        startCheckedQuizSelectBtn.style.display = 'none';
         resumeCheckedQuizBtn.style.display = 'none';
+    } else {
+        checkedSubjectListDiv.innerHTML = checkedSubjects.map(subject => `
+            <label class="subject-item">
+                <input type="checkbox" data-subject="${subject}"> ${subject}
+            </label>
+        `).join('');
+        startCheckedQuizSelectBtn.style.display = 'inline-block';
+        
+        if (lastCheckedQuiz) {
+            resumeCheckedQuizBtn.style.display = 'inline-block';
+            resumeCheckedQuizBtn.textContent = `마지막 체크문제 이어 풀기(${lastCheckedQuiz.subject}, ${lastCheckedQuiz.questionNumber})`;
+        } else {
+            resumeCheckedQuizBtn.style.display = 'none';
+        }
     }
 }
 
 // 문제 풀이 시작
-function startQuiz(mode, subject) {
+function startQuiz(mode, selectedSubjects) {
     currentQuizMode = mode;
-    let filteredQuestions = [];
-
+    
     if (mode === 'normal') {
-        const selectedSubjects = Array.from(subjectListDiv.querySelectorAll('input:checked'))
-                                     .map(cb => cb.dataset.subject);
-        if (selectedSubjects.length === 0) {
-            alert('하나 이상의 과목을 선택해주세요.');
-            return;
-        }
-        filteredQuestions = allQuestions.filter(q => selectedSubjects.includes(q.subject));
-        currentQuestions = filteredQuestions.sort((a, b) => a.subject.localeCompare(b.subject) || a.문제번호 - b.문제번호);
+        currentQuestions = allQuestions.filter(q => selectedSubjects.includes(q.subject))
+                                       .sort((a, b) => a.subject.localeCompare(b.subject) || a.문제번호 - b.문제번호);
         currentQuestionIndex = 0;
     } else if (mode === 'checked') {
         const checkedQIds = Object.keys(checkedProblems);
-        currentQuestions = allQuestions.filter(q => checkedQIds.includes(`${q.subject}-${q.문제번호}`));
+        currentQuestions = allQuestions.filter(q => selectedSubjects.includes(q.subject) && checkedQIds.includes(`${q.subject}-${q.문제번호}`));
         if (currentQuestions.length === 0) {
-            alert('체크된 문제가 없습니다.');
+            alert('선택한 과목에 체크된 문제가 없습니다.');
             return;
         }
         currentQuestionIndex = 0;
     } else if (mode === 'resume-normal') {
         const last = lastNormalQuiz;
-        const lastSubject = last.subject;
-        const lastQNum = last.questionNumber;
-        currentQuestions = allQuestions.filter(q => q.subject === lastSubject).sort((a, b) => a.문제번호 - b.문제번호);
-        const lastQuestion = currentQuestions.find(q => q.문제번호 == lastQNum);
-        if (lastQuestion) {
-            currentQuestionIndex = currentQuestions.indexOf(lastQuestion);
-        } else {
+        currentQuestions = allQuestions.filter(q => q.subject === last.subject).sort((a, b) => a.문제번호 - b.문제번호);
+        const lastQuestion = currentQuestions.find(q => q.문제번호 == last.questionNumber);
+        if (lastQuestion) currentQuestionIndex = currentQuestions.indexOf(lastQuestion);
+        else {
             alert('이전 문제가 존재하지 않습니다. 첫 문제부터 시작합니다.');
             currentQuestionIndex = 0;
         }
     } else if (mode === 'resume-checked') {
         const last = lastCheckedQuiz;
-        const lastSubject = last.subject;
-        const lastQNum = last.questionNumber;
-        currentQuestions = allQuestions.filter(q => Object.keys(checkedProblems).includes(`${q.subject}-${q.문제번호}`));
-        const lastQuestion = currentQuestions.find(q => q.문제번호 == lastQNum);
-        if (lastQuestion) {
-            currentQuestionIndex = currentQuestions.indexOf(lastQuestion);
-        } else {
+        const checkedQIds = Object.keys(checkedProblems);
+        currentQuestions = allQuestions.filter(q => checkedQIds.includes(`${q.subject}-${q.문제번호}`));
+        const lastQuestion = currentQuestions.find(q => q.문제번호 == last.questionNumber);
+        if (lastQuestion) currentQuestionIndex = currentQuestions.indexOf(lastQuestion);
+        else {
             alert('이전 체크 문제가 존재하지 않습니다. 체크 문제 목록의 첫 문제부터 시작합니다.');
             currentQuestionIndex = 0;
         }
     }
     
     subjectSelectionScreen.style.display = 'none';
+    checkedSubjectScreen.style.display = 'none';
     quizContainer.style.display = 'block';
     displayQuestion();
 }
@@ -145,10 +166,8 @@ function displayQuestion() {
     nextQuestionBtn.style.display = 'none';
     notesInput.value = savedNotes[qId] || '';
 
-    // 체크박스 상태 동기화
     checkProblemBox.checked = checkedProblems[qId] !== undefined;
 
-    // 마지막 문제 저장 (단일 라인)
     const lastQuizData = { subject: question.subject, questionNumber: question.문제번호 };
     if (currentQuizMode === 'normal') {
         localStorage.setItem('last-normal-quiz', JSON.stringify(lastQuizData));
@@ -178,17 +197,33 @@ function showAnswer() {
 }
 
 // 이벤트 리스너
-startNormalQuizBtn.addEventListener('click', () => startQuiz('normal', null));
-startCheckedQuizBtn.addEventListener('click', () => startQuiz('checked', null));
+startNormalQuizBtn.addEventListener('click', () => {
+    const selectedSubjects = Array.from(subjectListDiv.querySelectorAll('input:checked')).map(cb => cb.dataset.subject);
+    if (selectedSubjects.length > 0) {
+        startQuiz('normal', selectedSubjects);
+    } else {
+        alert('하나 이상의 과목을 선택해주세요.');
+    }
+});
+
+startCheckedQuizBtn.addEventListener('click', () => loadCheckedSubjectSelection());
+
+startCheckedQuizSelectBtn.addEventListener('click', () => {
+    const selectedSubjects = Array.from(checkedSubjectListDiv.querySelectorAll('input:checked')).map(cb => cb.dataset.subject);
+    if (selectedSubjects.length > 0) {
+        startQuiz('checked', selectedSubjects);
+    } else {
+        alert('하나 이상의 과목을 선택해주세요.');
+    }
+});
 
 resumeQuizBtn.addEventListener('click', () => startQuiz('resume-normal', null));
+
 resumeCheckedQuizBtn.addEventListener('click', () => startQuiz('resume-checked', null));
 
-goHomeBtn.addEventListener('click', () => {
-    quizContainer.style.display = 'none';
-    subjectSelectionScreen.style.display = 'block';
-    loadSubjectSelection();
-});
+goHomeBtn.addEventListener('click', () => loadSubjectSelection());
+
+backToMainBtn.addEventListener('click', () => loadSubjectSelection());
 
 nextQuestionBtn.addEventListener('click', () => {
     currentQuestionIndex++;
@@ -222,7 +257,6 @@ copyProblemBtn.addEventListener('click', async () => {
     let contentToCopy = `[${question.subject} - 문제 ${question.문제번호}]`;
     contentToCopy += `\n${problem_text}\n\n`;
     
-    // 정답이 표시된 상태인지 확인
     if (showAnswerBtn.style.display === 'none') {
         const answers = question.answers.map(ans => ans.part).join(', ');
         contentToCopy += `정답: ${answers}`;
@@ -230,14 +264,13 @@ copyProblemBtn.addEventListener('click', async () => {
 
     try {
         await navigator.clipboard.writeText(contentToCopy);
-        alert('문제와 정답이 클립보드에 복사되었습니다.');
+        alert('본문이 클립보드에 복사되었습니다.');
     } catch (err) {
         console.error('클립보드 복사 실패:', err);
         alert('클립보드 복사에 실패했습니다. 브라우저 설정을 확인해주세요.');
     }
 });
 
-// 메인 화면으로 이동된 주의사항 내보내기 버튼 이벤트 리스너
 exportNotesBtn.addEventListener('click', () => {
     if (Object.keys(savedNotes).length === 0) {
         alert('저장된 주의사항이 없습니다.');
