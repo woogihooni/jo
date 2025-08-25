@@ -17,12 +17,16 @@
         <button id="start-checked-quiz-btn" class="action-btn secondary-btn">체크문제 풀기</button>
         <button id="resume-quiz-btn" class="action-btn" style="display:none;">마지막 문제 이어 풀기</button>
         <button id="resume-checked-quiz-btn" class="action-btn" style="display:none;">마지막 체크문제 이어 풀기</button>
+        <button id="export-notes-btn" class="action-btn small-btn" style="margin-top: 20px;">주의사항 내보내기</button>
     </div>
 
     <div id="quiz-container" class="container" style="display: none;">
         <h2 id="current-subject-title"></h2>
         <h3 id="question-number"></h3>
-        <p id="question-text" class="question-text"></p>
+        <div class="question-header">
+            <p id="question-text" class="question-text"></p>
+            <button id="copy-problem-btn" class="small-btn">문제 및 정답 복사</button>
+        </div>
         
         <div class="problem-options">
             <label>
@@ -41,7 +45,6 @@
             <textarea id="notes-input" placeholder="여기에 내용을 기록하세요"></textarea>
             <div style="margin-top: 10px;">
                 <button id="save-notes-btn" class="action-btn small-btn">임시 저장</button>
-                <button id="export-notes-btn" class="action-btn small-btn">내용 내보내기</button>
             </div>
         </div>
         <button id="go-home-btn" class="action-btn secondary-btn" style="margin-top: 20px;">홈으로 돌아가기</button>
