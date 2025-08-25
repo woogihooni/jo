@@ -1,222 +1,211 @@
+// JavaScript: 전체 로직
+let allQuestions = [];
+let currentQuestions = [];
+let currentQuestionIndex = 0;
+let currentQuizMode = 'normal'; // 'normal' or 'checked'
 
-// HTML 요소 가져오기
-const mainTitle = document.getElementById('main-title');
-const backButton = document.getElementById('back-button');
-const mainCategoryList = document.getElementById('main-category-list');
-const subSituationList = document.getElementById('sub-situation-list');
-const dialogueList = document.getElementById('dialogue-list');
-const subSituationTitle = document.getElementById('sub-situation-title');
-const dialogueTitle = document.getElementById('dialogue-title');
+const subjectListDiv = document.getElementById('subject-list');
+const subjectSelectionScreen = document.getElementById('subject-selection-screen');
+const quizContainer = document.getElementById('quiz-container');
 
-// 현재 상태를 저장할 변수
-let currentData = null;
-let currentMainCategory = null;
+const startNormalQuizBtn = document.getElementById('start-normal-quiz-btn');
+const startCheckedQuizBtn = document.getElementById('start-checked-quiz-btn');
+const resumeQuizBtn = document.getElementById('resume-quiz-btn');
+const resumeCheckedQuizBtn = document.getElementById('resume-checked-quiz-btn');
+const goHomeBtn = document.getElementById('go-home-btn');
+
+const currentSubjectTitle = document.getElementById('current-subject-title');
+const questionNumberEl = document.getElementById('question-number');
+const questionTextEl = document.getElementById('question-text');
+const answerArea = document.getElementById('answer-area');
+const checkProblemBox = document.getElementById('check-problem-box');
+const showAnswerBtn = document.getElementById('show-answer-btn');
+const nextQuestionBtn = document.getElementById('next-question-btn');
+const notesInput = document.getElementById('notes-input');
+const saveNotesBtn = document.getElementById('save-notes-btn');
+const exportNotesBtn = document.getElementById('export-notes-btn');
+
+// 로컬 스토리지 데이터 로드
+let checkedProblems = JSON.parse(localStorage.getItem('checked-problems')) || {};
+let savedNotes = JSON.parse(localStorage.getItem('saved-notes')) || {};
+let lastNormalQuiz = JSON.parse(localStorage.getItem('last-normal-quiz')) || null;
+let lastCheckedQuiz = JSON.parse(localStorage.getItem('last-checked-quiz')) || null;
 
 // JSON 파일 불러오기
-fetch('phrases.json')
-    .then(response => response.json())
-    .then(data => {
-        currentData = data.data; // 데이터 저장
-        displayMainCategories(); // 데이터 로드 완료 후 함수 호출
-    })
-    .catch(error => console.error('Error fetching data:', error));
-
-// 뒤로가기 버튼 클릭 이벤트 (하나의 버튼으로 모든 뒤로가기 처리)
-backButton.addEventListener('click', () => {
-    if (dialogueList.style.display === 'flex') {
-        // 대화 목록 -> 서브 상황 목록
-        displaySubSituations(currentMainCategory.main_category_title, currentMainCategory.sub_situations);
-    } else if (subSituationList.style.display === 'flex') {
-        // 서브 상황 목록 -> 메인 카테고리 목록
-        displayMainCategories();
+async function fetchQuestions() {
+    try {
+        const response = await fetch('quiz.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        allQuestions = await response.json();
+        loadSubjectSelection();
+    } catch (e) {
+        console.error("문제 데이터를 불러오는 데 실패했습니다:", e);
+        subjectListDiv.innerHTML = "<p>문제를 불러올 수 없습니다. 'quiz.json' 파일이 올바른 위치에 있는지 확인해주세요.</p>";
     }
+}
+
+// 과목 선택 화면 로드
+function loadSubjectSelection() {
+    const subjects = [...new Set(allQuestions.map(q => q.subject))];
+    subjectListDiv.innerHTML = subjects.map(subject => `
+        <label class="subject-item">
+            <input type="checkbox" data-subject="${subject}"> ${subject}
+        </label>
+    `).join('');
+
+    // 마지막 문제 이어 풀기 버튼 상태 업데이트
+    if (lastNormalQuiz) resumeQuizBtn.style.display = 'inline-block';
+    if (lastCheckedQuiz) resumeCheckedQuizBtn.style.display = 'inline-block';
+}
+
+// 문제 풀이 시작
+function startQuiz(mode, subject) {
+    currentQuizMode = mode;
+    let filteredQuestions = [];
+
+    if (mode === 'normal') {
+        const selectedSubjects = Array.from(subjectListDiv.querySelectorAll('input:checked'))
+                                     .map(cb => cb.dataset.subject);
+        if (selectedSubjects.length === 0) {
+            alert('하나 이상의 과목을 선택해주세요.');
+            return;
+        }
+        filteredQuestions = allQuestions.filter(q => selectedSubjects.includes(q.subject));
+        currentQuestions = filteredQuestions.sort((a, b) => a.subject.localeCompare(b.subject) || a.문제번호 - b.문제번호);
+        currentQuestionIndex = 0;
+    } else if (mode === 'checked') {
+        const checkedQIds = Object.keys(checkedProblems);
+        currentQuestions = allQuestions.filter(q => checkedQIds.includes(`${q.subject}-${q.문제번호}`));
+        if (currentQuestions.length === 0) {
+            alert('체크된 문제가 없습니다.');
+            return;
+        }
+        currentQuestionIndex = 0;
+    } else if (mode === 'resume-normal') {
+        const last = lastNormalQuiz;
+        const lastSubject = last.subject;
+        const lastQNum = last.questionNumber;
+        currentQuestions = allQuestions.filter(q => q.subject === lastSubject).sort((a, b) => a.문제번호 - b.문제번호);
+        const lastQuestion = currentQuestions.find(q => q.문제번호 == lastQNum);
+        currentQuestionIndex = currentQuestions.indexOf(lastQuestion);
+    } else if (mode === 'resume-checked') {
+        const last = lastCheckedQuiz;
+        const lastSubject = last.subject;
+        const lastQNum = last.questionNumber;
+        currentQuestions = allQuestions.filter(q => Object.keys(checkedProblems).includes(`${q.subject}-${q.문제번호}`));
+        const lastQuestion = currentQuestions.find(q => q.문제번호 == lastQNum);
+        currentQuestionIndex = currentQuestions.indexOf(lastQuestion);
+    }
+    
+    subjectSelectionScreen.style.display = 'none';
+    quizContainer.style.display = 'block';
+    displayQuestion();
+}
+
+// 문제 표시
+function displayQuestion() {
+    if (currentQuestionIndex >= currentQuestions.length) {
+        alert('모든 문제를 다 풀었습니다!');
+        goHomeBtn.click();
+        return;
+    }
+
+    const question = currentQuestions[currentQuestionIndex];
+    const qId = `${question.subject}-${question.문제번호}`;
+
+    currentSubjectTitle.textContent = question.subject;
+    questionNumberEl.textContent = `문제 ${question.문제번호}`;
+    questionTextEl.innerHTML = question.question;
+    answerArea.innerHTML = '';
+    showAnswerBtn.style.display = 'block';
+    nextQuestionBtn.style.display = 'none';
+    notesInput.value = savedNotes[qId] || '';
+
+    // 체크박스 상태 동기화
+    checkProblemBox.checked = checkedProblems[qId] !== undefined;
+
+    // 마지막 문제 저장 (단일 라인)
+    const lastQuizData = { subject: question.subject, questionNumber: question.문제번호 };
+    if (currentQuizMode === 'normal') {
+        localStorage.setItem('last-normal-quiz', JSON.stringify(lastQuizData));
+    } else {
+        localStorage.setItem('last-checked-quiz', JSON.stringify(lastQuizData));
+    }
+}
+
+// 정답 보여주기
+function showAnswer() {
+    const question = currentQuestions[currentQuestionIndex];
+    if (question.answers_shown_count === undefined) question.answers_shown_count = 0;
+
+    if (question.answers_shown_count < question.answers.length) {
+        const answer = question.answers[question.answers_shown_count];
+        const blankRegex = new RegExp(`（\\s*${answer.part.slice(0, 1)}.*?\\s*）`, 'g');
+        
+        questionTextEl.innerHTML = questionTextEl.innerHTML.replace(blankRegex, `<span class="filled-blank" style="color:#28a745;">${answer.part.slice(2)}</span>`);
+        answerArea.innerHTML += `<div>${answer.part}</div>`;
+
+        question.answers_shown_count++;
+        if (question.answers_shown_count === question.answers.length) {
+            showAnswerBtn.style.display = 'none';
+            nextQuestionBtn.style.display = 'block';
+        }
+    }
+}
+
+// 이벤트 리스너
+startNormalQuizBtn.addEventListener('click', () => startQuiz('normal', null));
+startCheckedQuizBtn.addEventListener('click', () => startQuiz('checked', null));
+
+resumeQuizBtn.addEventListener('click', () => startQuiz('resume-normal', null));
+resumeCheckedQuizBtn.addEventListener('click', () => startQuiz('resume-checked', null));
+
+goHomeBtn.addEventListener('click', () => {
+    quizContainer.style.display = 'none';
+    subjectSelectionScreen.style.display = 'block';
+    loadSubjectSelection();
 });
 
-// 메인 카테고리 목록을 보여주는 함수
-function displayMainCategories() {
-    mainTitle.style.display = 'block';
-    backButton.style.display = 'none';
-    mainCategoryList.style.display = 'flex';
-    subSituationList.style.display = 'none';
-    dialogueList.style.display = 'none';
+nextQuestionBtn.addEventListener('click', () => {
+    currentQuestionIndex++;
+    displayQuestion();
+});
 
-    mainCategoryList.innerHTML = '';
-    currentData.forEach(category => {
-        const button = document.createElement('button');
-        button.className = 'main-category-button';
-        button.textContent = category.main_category_title;
-        button.addEventListener('click', () => {
-            currentMainCategory = category;
-            displaySubSituations(category.main_category_title, category.sub_situations);
-        });
-        mainCategoryList.appendChild(button);
-    });
-}
+showAnswerBtn.addEventListener('click', showAnswer);
 
-// 서브 상황 목록을 보여주는 함수
-function displaySubSituations(mainCategoryTitle, subSituations) {
-    mainTitle.style.display = 'none';
-    backButton.style.display = 'block';
-    mainCategoryList.style.display = 'none';
-    subSituationList.style.display = 'flex';
-    dialogueList.style.display = 'none';
-
-    // 메인 카테고리 제목을 상단에 표시
-    subSituationTitle.textContent = mainCategoryTitle;
-
-    // 첫 번째 자식(제목)을 제외한 모든 자식 노드(기존 버튼)를 제거합니다.
-    let child = subSituationTitle.nextElementSibling;
-    while (child) {
-        subSituationList.removeChild(child);
-        child = subSituationTitle.nextElementSibling;
+checkProblemBox.addEventListener('change', (e) => {
+    const question = currentQuestions[currentQuestionIndex];
+    const qId = `${question.subject}-${question.문제번호}`;
+    if (e.target.checked) {
+        checkedProblems[qId] = true;
+    } else {
+        delete checkedProblems[qId];
     }
+    localStorage.setItem('checked-problems', JSON.stringify(checkedProblems));
+});
 
-    subSituations.forEach(situation => {
-        const button = document.createElement('button');
-        button.className = 'sub-situation-button';
-        button.textContent = situation.title;
-        button.addEventListener('click', () => {
-            displayDialogue(mainCategoryTitle, situation.title, situation.dialogues);
-        });
-        subSituationList.appendChild(button);
-    });
-}
+saveNotesBtn.addEventListener('click', () => {
+    const question = currentQuestions[currentQuestionIndex];
+    const qId = `${question.subject}-${question.문제번호}`;
+    savedNotes[qId] = notesInput.value;
+    localStorage.setItem('saved-notes', JSON.stringify(savedNotes));
+    alert('내용이 임시 저장되었습니다.');
+});
 
-// 대화 문장을 보여주는 함수
-function displayDialogue(mainTitleText, subTitle, dialogues) {
-    mainTitle.style.display = 'none';
-    backButton.style.display = 'block';
-    mainCategoryList.style.display = 'none';
-    subSituationList.style.display = 'none';
-    dialogueList.style.display = 'flex';
+exportNotesBtn.addEventListener('click', () => {
+    const notes = JSON.stringify(savedNotes, null, 2);
+    const blob = new Blob([notes], {type: "application/json;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = '문제_주의사항.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+});
 
-    dialogueTitle.textContent = `${mainTitleText} - ${subTitle}`;
-    
-    // 기존 대화 내용을 모두 제거하고 제목만 남깁니다.
-    let child = dialogueTitle.nextElementSibling;
-    while (child) {
-        dialogueList.removeChild(child);
-        child = dialogueTitle.nextElementSibling;
-    }
-
-    dialogues.forEach(line => {
-        const dialogueBox = document.createElement('div');
-        dialogueBox.className = 'dialogue-box';
-
-        const japaneseHtmlContent = line.japanese_html || line.japanese;
-        
-        dialogueBox.dataset.originalKorean = line.korean;
-        dialogueBox.dataset.originalJapaneseHtml = japaneseHtmlContent;
-        dialogueBox.dataset.originalPronunciation = line.pronunciation;
-
-        const koreanContent = document.createElement('div');
-        koreanContent.className = 'korean-content';
-        koreanContent.innerHTML = `
-            <p class="speaker">${line.speaker}</p>
-            <hr>
-            <p class="korean">${line.korean}</p>
-        `;
-        
-        const japaneseContent = document.createElement('div');
-        japaneseContent.className = 'japanese-content';
-
-        const japaneseTextContainer = document.createElement('div');
-        japaneseTextContainer.className = 'japanese-text';
-
-        const japaneseEl = document.createElement('p');
-        japaneseEl.className = 'japanese';
-        japaneseEl.innerHTML = japaneseHtmlContent;
-
-        const pronunciationEl = document.createElement('p');
-        pronunciationEl.className = 'pronunciation';
-        pronunciationEl.textContent = line.pronunciation;
-
-        japaneseTextContainer.appendChild(japaneseEl);
-        japaneseTextContainer.appendChild(pronunciationEl);
-
-        japaneseContent.appendChild(japaneseTextContainer);
-        
-        dialogueBox.appendChild(koreanContent);
-        dialogueBox.appendChild(japaneseContent);
-
-        // 한글 영역 클릭 이벤트: 일본어 문장 전체를 토글
-        koreanContent.addEventListener('click', (e) => {
-            const isJapaneseVisible = japaneseContent.style.display === 'block';
-
-            if (isJapaneseVisible) {
-                // 이미 일본어 문장이 보이면 숨김 (발음도 함께 숨김)
-                japaneseContent.style.display = 'none';
-                pronunciationEl.style.display = 'none';
-            } else {
-                // 일본어 문장이 숨겨져 있으면 보이게 하고, 발음은 숨김
-                japaneseContent.style.display = 'block';
-                pronunciationEl.style.display = 'none';
-            }
-        });
-
-        // 일본어 문장 클릭 이벤트: 발음만 토글
-        japaneseTextContainer.addEventListener('click', (e) => {
-            e.stopPropagation(); // 한글 영역 클릭 이벤트 전파 방지
-            const currentDisplay = pronunciationEl.style.display;
-            pronunciationEl.style.display = (currentDisplay === 'none' || currentDisplay === '') ? 'block' : 'none';
-        });
-
-        // 대체 단어 기능 추가
-        if (line.replacements && line.replacements.length > 0) {
-            const replacementsContainer = document.createElement('div');
-            replacementsContainer.className = 'replacements-container';
-            
-            const firstReplacement = line.replacements[0];
-            
-            firstReplacement.alternatives.forEach((alt, altIndex) => {
-                const button = document.createElement('button');
-                button.className = 'replacement-button';
-                button.textContent = alt;
-                button.addEventListener('click', (e) => {
-                    e.stopPropagation(); // 대화 박스의 클릭 이벤트 전파 방지
-                    
-                    const koreanEl = dialogueBox.querySelector('.korean');
-                    const japaneseElInBox = japaneseTextContainer.querySelector('.japanese');
-                    const pronunciationElInBox = japaneseTextContainer.querySelector('.pronunciation');
-
-                    const currentButtons = replacementsContainer.querySelectorAll('.replacement-button');
-
-                    // 이미 선택된 버튼을 다시 클릭하면 원문으로 돌아가도록 처리
-                    if (button.classList.contains('selected')) {
-                        koreanEl.textContent = dialogueBox.dataset.originalKorean;
-                        japaneseElInBox.innerHTML = dialogueBox.dataset.originalJapaneseHtml;
-                        pronunciationElInBox.textContent = dialogueBox.dataset.originalPronunciation;
-                        currentButtons.forEach(btn => btn.classList.remove('selected'));
-                    } else {
-                        // 수정된 교체 로직: 원본 japanese_html에서 대상을 정확히 찾아 교체
-                        const japaneseTargetPattern = new RegExp(`<ruby>${firstReplacement.japanese_target}<rt>.*?</rt></ruby>`, 'g');
-                        const newJapaneseHtml = dialogueBox.dataset.originalJapaneseHtml.replace(
-                            japaneseTargetPattern,
-                            firstReplacement.japanese_alternatives_html[altIndex]
-                        );
-
-                        // 한글 교체 로직
-                        const newKorean = dialogueBox.dataset.originalKorean.replace(firstReplacement.target, alt);
-                        
-                        // 발음 교체 로직
-                        const newPronunciation = dialogueBox.dataset.originalPronunciation.replace(firstReplacement.pronunciation_target, firstReplacement.pronunciation_alternatives[altIndex]);
-                        
-                        koreanEl.textContent = newKorean;
-                        japaneseElInBox.innerHTML = newJapaneseHtml;
-                        pronunciationElInBox.textContent = newPronunciation;
-                        
-                        currentButtons.forEach(btn => btn.classList.remove('selected'));
-                        button.classList.add('selected');
-                    }
-                });
-                replacementsContainer.appendChild(button);
-            });
-            japaneseContent.appendChild(replacementsContainer);
-        }
-        
-        dialogueList.appendChild(dialogueBox);
-    });
-}
-
-// 초기 화면 표시
-displayMainCategories();
+// 앱 시작
+fetchQuestions();

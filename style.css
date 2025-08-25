@@ -1,159 +1,135 @@
-/* 공통 스타일 */
+/* 기본 설정 */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-    margin: 0;
-    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-}
-
-header {
-    width: 100%;
-    max-width: 600px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h1 {
-    font-size: 1.8rem;
-    color: #2c3e50;
-    line-height: 1.4;
+    min-height: 100vh;
     margin: 0;
-}
-
-h2 {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-main {
-    width: 100%;
-    max-width: 600px;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
+    text-align: center;
+    background-color: #1e1e1e;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    width: 90%;
+    margin: 20px auto;
+    transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.main-title { color: #f0f0f0; }
+.sub-title { color: #bdbdbd; }
+
+/* 과목 선택 영역 */
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 15px;
+    margin-bottom: 25px;
 }
-
-/* 메인/서브 카테고리 버튼 스타일 */
-.main-category-button, .sub-situation-button {
-    width: 100%;
-    padding: 20px;
-    font-size: 1.2rem;
-    background-color: #ffffff;
-    border: 1px solid #ddd;
+.subject-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
     border-radius: 8px;
+    background-color: #2c2c2c;
+    border: 1px solid #444;
     cursor: pointer;
-    text-align: left;
-    transition: background-color 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s;
+}
+.subject-item:hover {
+    background-color: #383838;
+}
+.subject-item input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #007bff;
 }
 
-.main-category-button:hover, .sub-situation-button:hover {
-    background-color: #e8f0fe;
-}
-
-/* 뒤로가기 버튼 스타일 */
-.back-button {
-    width: 150px;
-    padding: 10px;
-    margin: 20px auto 0;
-    font-size: 1rem;
-    background-color: #95a5a6;
-    color: white;
+/* 버튼 스타일 */
+.action-btn {
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 1.1em;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s;
+    color: #fff;
 }
 
-.back-button:hover {
-    background-color: #7f8c8d;
+#start-normal-quiz-btn { background-color: #007bff; }
+#start-normal-quiz-btn:hover { background-color: #0056b3; }
+
+#start-checked-quiz-btn { background-color: #6c757d; }
+#start-checked-quiz-btn:hover { background-color: #5a6268; }
+
+#resume-quiz-btn, #resume-checked-quiz-btn { background-color: #6f42c1; }
+#resume-quiz-btn:hover, #resume-checked-quiz-btn:hover { background-color: #5b3997; }
+
+#show-answer-btn { background-color: #28a745; }
+#show-answer-btn:hover { background-color: #218838; }
+
+#next-question-btn { background-color: #17a2b8; }
+#next-question-btn:hover { background-color: #138496; }
+
+.secondary-btn { background-color: #6c757d; }
+.secondary-btn:hover { background-color: #5a6268; }
+
+.small-btn {
+    padding: 10px 20px;
+    font-size: 0.9em;
+    margin-left: 10px;
 }
 
-/* 대화 상자 스타일 */
-.dialogue-box {
-    background-color: #ffffff;
+/* 문제 풀이 화면 스타일 */
+.question-text {
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    padding: 25px;
     border-radius: 8px;
+    line-height: 1.6;
+    text-align: left;
+    white-space: pre-wrap;
+    transition: background-color 0.5s, border-color 0.5s;
+}
+
+.question-text .blank {
+    border-bottom: 2px solid #666;
+    padding: 0 5px;
+}
+
+.answer-area {
+    margin: 20px 0;
     padding: 15px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: transform 0.2s;
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    min-height: 50px;
+    text-align: left;
+    transition: background-color 0.5s;
 }
 
-.dialogue-box:active {
-    transform: scale(0.98);
+#notes-input {
+    width: 100%;
+    height: 100px;
+    background-color: #2c2c2c;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 8px;
+    resize: vertical;
+    transition: background-color 0.5s, border-color 0.5s;
 }
-
-.dialogue-box .speaker {
-    font-weight: bold;
-    color: #2980b9;
-    margin: 0;
-}
-
-.dialogue-box .korean {
-    font-size: 1.1rem;
-    margin: 10px 0 0 0;
-}
-
-.dialogue-box .japanese-content {
-    display: none;
-}
-.dialogue-box .japanese {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #333;
-    margin: 10px 0 0 0;
-    border-top: 1px solid #eee;
-    padding-top: 10px;
-    cursor: pointer;
-}
-
-.dialogue-box .japanese ruby rt {
-    font-size: 0.8em;
-    font-weight: normal;
-    color: #95a5a6;
-}
-.dialogue-box .pronunciation {
-    font-size: 1rem;
-    color: #555;
-    margin: 5px 0 0 0;
-}
-
-/* 대체 단어 버튼 스타일 */
-.replacements-container {
-    margin-top: 10px;
-    border-top: 1px solid #eee;
-    padding-top: 10px;
+.problem-options {
     display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-
-.replacement-button {
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f7f7f7;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    font-size: 0.9rem;
-}
-
-.replacement-button:hover {
-    background-color: #e0e0e0;
-}
-
-.replacement-button.selected {
-    background-color: #2980b9;
-    color: white;
-    border-color: #2980b9;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }

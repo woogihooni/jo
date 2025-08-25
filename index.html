@@ -3,29 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>공부하자</title>
+    <title>문제 풀이 앱</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
+    <div id="subject-selection-screen" class="container">
+        <h1 class="main-title">문제 풀이 앱</h1>
+        <h2 class="sub-title">과목을 선택해주세요</h2>
+        <div id="subject-list" class="subject-grid">
+            </div>
+        <button id="start-normal-quiz-btn" class="action-btn">문제풀기 (선택과목)</button>
+        <button id="start-checked-quiz-btn" class="action-btn secondary-btn">체크문제 풀기</button>
+        <button id="resume-quiz-btn" class="action-btn" style="display:none;">마지막 문제 이어 풀기</button>
+        <button id="resume-checked-quiz-btn" class="action-btn" style="display:none;">마지막 체크문제 이어 풀기</button>
+    </div>
 
-    <header>
-        <h1 id="main-title">공부하자</h1>
-        <button id="back-button" class="back-button" style="display: none;">뒤로가기</button>
-    </header>
-
-    <main>
-        <div id="main-category-list" class="container"></div>
-
-        <div id="sub-situation-list" class="container" style="display: none;">
-            <h2 id="sub-situation-title"></h2>
+    <div id="quiz-container" class="container" style="display: none;">
+        <h2 id="current-subject-title"></h2>
+        <h3 id="question-number"></h3>
+        <p id="question-text" class="question-text"></p>
+        
+        <div class="problem-options">
+            <label>
+                <input type="checkbox" id="check-problem-box"> 어려운 문제 체크하기
+            </label>
         </div>
 
-        <div id="dialogue-list" class="container" style="display: none;">
-            <h2 id="dialogue-title"></h2>
+        <div class="answer-section">
+            <div id="answer-area" class="answer-area"></div>
+            <button id="show-answer-btn" class="action-btn">정답 보기</button>
+            <button id="next-question-btn" class="action-btn" style="display: none;">다음 문제</button>
         </div>
-    </main>
+
+        <div class="notes-section">
+            <h3>주의사항 기록</h3>
+            <textarea id="notes-input" placeholder="여기에 내용을 기록하세요"></textarea>
+            <div style="margin-top: 10px;">
+                <button id="save-notes-btn" class="action-btn small-btn">임시 저장</button>
+                <button id="export-notes-btn" class="action-btn small-btn">내용 내보내기</button>
+            </div>
+        </div>
+        <button id="go-home-btn" class="action-btn secondary-btn" style="margin-top: 20px;">홈으로 돌아가기</button>
+    </div>
 
     <script src="script.js"></script>
-
 </body>
 </html>
