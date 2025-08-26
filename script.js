@@ -15,6 +15,7 @@ const startNormalQuizBtn = document.getElementById('start-normal-quiz-btn');
 const startCheckedQuizBtn = document.getElementById('start-checked-quiz-btn');
 const resumeQuizBtn = document.getElementById('resume-quiz-btn');
 const exportNotesBtn = document.getElementById('export-notes-btn');
+const clearNotesBtn = document.getElementById('clear-notes-btn');
 
 const startCheckedQuizSelectBtn = document.getElementById('start-checked-quiz-select-btn');
 const resumeCheckedQuizBtn = document.getElementById('resume-checked-quiz-btn');
@@ -29,6 +30,7 @@ const copyProblemBtn = document.getElementById('copy-problem-btn');
 const answerArea = document.getElementById('answer-area');
 const checkProblemBox = document.getElementById('check-problem-box');
 const showAnswerBtn = document.getElementById('show-answer-btn');
+const prevQuestionBtn = document.getElementById('prev-question-btn');
 const nextQuestionBtn = document.getElementById('next-question-btn');
 const notesInput = document.getElementById('notes-input');
 const saveNotesBtn = document.getElementById('save-notes-btn');
@@ -165,11 +167,16 @@ function displayQuestion() {
     showAnswerBtn.style.display = 'block';
     nextQuestionBtn.style.display = 'none';
     notesInput.value = savedNotes[qId] || '';
-    
-    // 이전에 보여준 정답 카운트 초기화
+
     question.answers_shown_count = 0;
 
     checkProblemBox.checked = checkedProblems[qId] !== undefined;
+
+    if (currentQuestionIndex === 0) {
+        prevQuestionBtn.style.display = 'none';
+    } else {
+        prevQuestionBtn.style.display = 'inline-block';
+    }
 
     const lastQuizData = { subject: question.subject, questionNumber: question.문제번호 };
     if (currentQuizMode === 'normal') {
@@ -186,7 +193,6 @@ function showAnswer() {
 
     if (question.answers_shown_count < question.answers.length) {
         const answer = question.answers[question.answers_shown_count];
-        // 정규식을 사용해 빈칸을 찾고, 올바른 정답을 채워넣음
         const blankRegex = new RegExp(`（\\s*${answer.part.slice(0, 1)}.*?\\s*）`, 'g');
         
         questionTextEl.innerHTML = questionTextEl.innerHTML.replace(blankRegex, `<span class="filled-blank" style="color:#28a745;">${answer.part.slice(2)}</span>`);
@@ -225,9 +231,19 @@ resumeQuizBtn.addEventListener('click', () => startQuiz('resume-normal', null));
 
 resumeCheckedQuizBtn.addEventListener('click', () => startQuiz('resume-checked', null));
 
-goHomeBtn.addEventListener('click', () => loadSubjectSelection());
+goHomeBtn.addEventListener('click', () => {
+    quizContainer.style.display = 'none';
+    loadSubjectSelection();
+});
 
 backToMainBtn.addEventListener('click', () => loadSubjectSelection());
+
+prevQuestionBtn.addEventListener('click', () => {
+    if (currentQuestionIndex > 0) {
+        currentQuestionIndex--;
+        displayQuestion();
+    }
+});
 
 nextQuestionBtn.addEventListener('click', () => {
     currentQuestionIndex++;
@@ -275,22 +291,34 @@ copyProblemBtn.addEventListener('click', async () => {
     }
 });
 
-exportNotesBtn.addEventListener('click', () => {
+// ✅ 개선: 주의사항을 클립보드에 복사하는 기능으로 변경
+exportNotesBtn.addEventListener('click', async () => {
     if (Object.keys(savedNotes).length === 0) {
         alert('저장된 주의사항이 없습니다.');
         return;
     }
-    const notes = JSON.stringify(savedNotes, null, 2);
-    const blob = new Blob([notes], {type: "application/json;charset=utf-8"});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = '문제_주의사항.json';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    alert('주의사항 파일이 다운로드되었습니다.');
+    const notesString = JSON.stringify(savedNotes, null, 2);
+    try {
+        await navigator.clipboard.writeText(notesString);
+        alert('주의사항이 클립보드에 복사되었습니다.');
+    } catch (err) {
+        console.error('클립보드 복사 실패:', err);
+        alert('클립보드 복사에 실패했습니다. 브라우저 설정을 확인해주세요.');
+    }
+});
+
+// ✅ 개선: 주의사항을 로컬 스토리지에서 삭제하는 기능 추가
+clearNotesBtn.addEventListener('click', () => {
+    if (Object.keys(savedNotes).length === 0) {
+        alert('삭제할 주의사항이 없습니다.');
+        return;
+    }
+    const confirmClear = confirm('주의사항을 모두 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.');
+    if (confirmClear) {
+        localStorage.removeItem('saved-notes');
+        savedNotes = {}; // 메모리상의 변수도 초기화
+        alert('주의사항이 모두 삭제되었습니다.');
+    }
 });
 
 // 앱 시작

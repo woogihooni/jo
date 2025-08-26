@@ -108,6 +108,10 @@ body {
 #copy-problem-btn { background-color: #007bff; }
 #copy-problem-btn:hover { background-color: #0056b3; }
 
+#prev-question-btn { background-color: #f0ad4e; }
+#prev-question-btn:hover { background-color: #ec971f; }
+
+
 .small-btn {
     padding: 10px 15px;
     font-size: 0.8em;
