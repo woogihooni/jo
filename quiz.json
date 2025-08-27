@@ -4628,17 +4628,13 @@
     "notes": ""
   },
   {
-    "type": "multiple_answers",
+    "type": "single_answer",
     "subject": "조경기초설계",
     "문제번호": 75,
     "question": "특수한 용도로 사용되는 화강암 경계석은 제외하고, 일반적인 직선으로 된 경계석 길이는 얼마인지 쓰시오.",
     "answers": [
       {
-        "part": "1",
-        "is_correct": false
-      },
-      {
-        "part": "000mm(1m)",
+        "part": "1000mm(1m)",
         "is_correct": false
       }
     ],
@@ -4674,21 +4670,13 @@
     "notes": ""
   },
   {
-    "type": "multiple_answers",
+    "type": "single_answer",
     "subject": "조경기초설계",
     "문제번호": 78,
     "question": "콘크리트 보차도 경계 블록의 종류를 쓰시오.",
     "answers": [
       {
-        "part": "A형",
-        "is_correct": false
-      },
-      {
-        "part": "B형",
-        "is_correct": false
-      },
-      {
-        "part": "C형",
+        "part": "A형_ B형_ C형",
         "is_correct": false
       }
     ],
@@ -4696,17 +4684,13 @@
     "notes": ""
   },
   {
-    "type": "multiple_answers",
+    "type": "single_answer",
     "subject": "조경기초설계",
     "문제번호": 79,
     "question": "보차도용 콘크리트 조립블록 중 차도용 블록의 휨강도(kg/cm²)와 두께(mm)를 쓰시오.",
     "answers": [
       {
-        "part": "휨강도 60kg/cm²",
-        "is_correct": false
-      },
-      {
-        "part": "두께 80mm",
+        "part": "휨강도 60kg/cm²_ 두께 80mm",
         "is_correct": false
       }
     ],
@@ -5422,13 +5406,17 @@
     "notes": ""
   },
   {
-    "type": "single_answer",
+    "type": "multiple_answers",
     "subject": "조경기반설계",
     "문제번호": 30,
     "question": "다음에서 설명하는 도로의 기능을 쓰시오. 1) 보행, 자전거, 차량 등을 안전, 원활, 쾌적하게 목적지까지 이동하게 하는 기능 및 인접시설에의 접근 기능 등을 포함하는 기능 2) 도시, 단지 등의 골격 형성, 해당 공간의 경관형성 기능 등을 포함하는 기능",
     "answers": [
       {
-        "part": "1) 통행기능 2) 공간기능",
+        "part": "1) 통행기능",
+        "is_correct": false
+      },
+      {
+        "part": "2) 공간기능",
         "is_correct": false
       }
     ],
@@ -5854,13 +5842,17 @@
     "notes": ""
   },
   {
-    "type": "single_answer",
+    "type": "multiple_answers",
     "subject": "조경기반설계",
     "문제번호": 58,
     "question": "옹벽의 1) 전도안전율과 2) 옹벽활동안전율을 쓰시오.",
     "answers": [
       {
-        "part": "1) 2.0 2) 1.5",
+        "part": "1) 2.0",
+        "is_correct": false
+      },
+      {
+        "part": "2) 1.5",
         "is_correct": false
       }
     ],
@@ -6034,13 +6026,21 @@
     "notes": ""
   },
   {
-    "type": "single_answer",
+    "type": "multiple_answers",
     "subject": "조경기반설계",
     "문제번호": 70,
     "question": "지표면 배수설계 시 유의 사항에서 잘못된 부분을 찾아 바르게 고쳐 쓰시오. 1) 식재지연 및 구조물 쪽으로 역경사가 되도록 한다. 2) 녹지에 다른 지역의 물이 흘러가도록 설계한다. 3) 토양침식을 방지하기 위해서 표면을 수생식물 등으로 피복하도록 설계한다.",
     "answers": [
       {
-        "part": "1) 되도록 → 되지 않도록 2) 흘러가도록 → 유입되지 않도록 3) 수생식물 → 지피식물",
+        "part": "1) 되도록 → 되지 않도록",
+        "is_correct": false
+      },
+      {
+        "part": "2) 흘러가도록 → 유입되지 않도록",
+        "is_correct": false
+      },
+      {
+        "part": "3) 수생식물 → 지피식물",
         "is_correct": false
       }
     ],
@@ -6556,13 +6556,21 @@
     "notes": ""
   },
   {
-    "type": "single_answer",
+    "type": "multiple_answers",
     "subject": "조경기반설계",
     "문제번호": 101,
     "question": "다음 차도용 포장면의 횡단경사는 몇 %인지 쓰시오. 1) 아스팔트콘크리트포장 및 시멘트콘크리트포장 2) 간이포장도로 3) 비포장도로",
     "answers": [
       {
-        "part": "1) 1.5~2.0% 2) 2~4% 3) 3~6%",
+        "part": "1) 1.5~2.0%",
+        "is_correct": false
+      },
+      {
+        "part": "2) 2~4%",
+        "is_correct": false
+      },
+      {
+        "part": "3) 3~6%",
         "is_correct": false
       }
     ],
@@ -6690,13 +6698,17 @@
     "notes": ""
   },
   {
-    "type": "single_answer",
+    "type": "multiple_answers",
     "subject": "정원설계",
     "문제번호": 4,
     "question": "대상지의 도로에 대한 조건으로 1) 좋은 도로 폭과 2) 위험한 도로 폭은 각각 몇 m인지 쓰시오.",
     "answers": [
       {
-        "part": "1) 6~8m 2) 10m 이상",
+        "part": "1) 6~8m",
+        "is_correct": false
+      },
+      {
+        "part": "2) 10m 이상",
         "is_correct": false
       }
     ],
@@ -6780,13 +6792,17 @@
     "notes": ""
   },
   {
-    "type": "single_answer",
+    "type": "multiple_answers",
     "subject": "정원설계",
     "문제번호": 9,
     "question": "다음에서 설명하는 측량 방법의 종류를 쓰시오. 1) 대상지의 부지 경계가 모호할 경우 다툼의 소지를 없애기 위한 측량 2) 대상지 측량 방법 등 이미 알려진 두 점에서 이어진 세 번째 점을 연결하는 방법으로 하는 측량",
     "answers": [
       {
-        "part": "1) 경계측량 2) 삼각측량",
+        "part": "1) 경계측량",
+        "is_correct": false
+      },
+      {
+        "part": "2) 삼각측량",
         "is_correct": false
       }
     ],
@@ -7324,13 +7340,21 @@
     "notes": ""
   },
   {
-    "type": "single_answer",
+    "type": "multiple_answers",
     "subject": "정원설계",
     "문제번호": 41,
     "question": "경사로 설계 시 경사율에 따라 통행에 장애가 오거나 불편해진다. 다음 경사로의 경사율을 쓰시오. 1) 경사로의 최대경사율 2) 신체장애자용 경사율 3) 쾌적하게 걸어갈 수 있는 허용경사율",
     "answers": [
       {
-        "part": "1) 10% 2) 8% 3) 6%",
+        "part": "1) 10%",
+        "is_correct": false
+      },
+      {
+        "part": "2) 8%",
+        "is_correct": false
+      },
+      {
+        "part": "3) 6%",
         "is_correct": false
       }
     ],
@@ -7380,39 +7404,15 @@
     "question": "정원 세부 공간의 기능과 경관 연출에 적합한 시설물을 배치할 때 다음 설명에 알맞은 시설물을 <보기>에서 모두 골라 쓰시오. 1) 규모가 있는 단위 시설물 2) 규모가 작은 시설물 3) 크기와 무관하게 형태를 약화한 기호로 표시해도 되는 시설물 <보기> 퍼걸러, 야외 탁자, 정자, 평의자, 동의자, 정원등, 평상, 조명등, 물확, 셸터, 석탑",
     "answers": [
       {
-        "part": "1) 퍼걸러",
+        "part": "1) 퍼걸러_ 정자_ 셸터",
         "is_correct": false
       },
       {
-        "part": "정자",
+        "part": "2) 야외 탁자_ 평상_ 동의자_ 평의자",
         "is_correct": false
       },
       {
-        "part": "셸터 2) 야외 탁자",
-        "is_correct": false
-      },
-      {
-        "part": "평상",
-        "is_correct": false
-      },
-      {
-        "part": "동의자",
-        "is_correct": false
-      },
-      {
-        "part": "평의자 3) 정원등",
-        "is_correct": false
-      },
-      {
-        "part": "조명등",
-        "is_correct": false
-      },
-      {
-        "part": "물확",
-        "is_correct": false
-      },
-      {
-        "part": "석탑",
+        "part": "3) 정원등_ 조명등_ 물확_ 석탑",
         "is_correct": false
       }
     ],
@@ -7788,13 +7788,17 @@
     "notes": ""
   },
   {
-    "type": "single_answer",
+    "type": "multiple_answers",
     "subject": "정원설계",
     "문제번호": 67,
     "question": "다음에서 설명하는 식재 방법을 쓰시오. 1) 진입구 또는 공원 입구에 좌우에 형태와 크기가 같은 동일 수종의 나무를 쌍으로 식재하는 방법 2) 형태, 크기 등이 같은 동일 수종의 나무를 일정한 간격으로 줄을 이루도록 식재하는 방법",
     "answers": [
       {
-        "part": "1) 대식 2) 열식",
+        "part": "1) 대식",
+        "is_correct": false
+      },
+      {
+        "part": "2) 열식",
         "is_correct": false
       }
     ],
@@ -7890,31 +7894,15 @@
     "question": "다음은 배식설계도 작성 시 교목 식재설계에 관한 내용이다. 잘못된 부분을 찾아 바르게 고쳐 쓰시오. 1) 부지 모서리에 가장 값이 비싼 교목을 심는다. 2) 소나무 양측에는 상록관목을 식재한다. 3) 소나무는 2, 4, 6, 8 등 짝수 단위 군식으로 심는다.",
     "answers": [
       {
-        "part": "1) 값이 비싼 → 큰 낙엽 2) 상록관목 → 낙엽교목 3) 2",
+        "part": "1) 값이 비싼 → 큰 낙엽",
         "is_correct": false
       },
       {
-        "part": "4",
+        "part": "2) 상록관목 → 낙엽교목",
         "is_correct": false
       },
       {
-        "part": "6",
-        "is_correct": false
-      },
-      {
-        "part": "8 등 짝수 → 3",
-        "is_correct": false
-      },
-      {
-        "part": "5",
-        "is_correct": false
-      },
-      {
-        "part": "7",
-        "is_correct": false
-      },
-      {
-        "part": "9 등 홀수",
+        "part": "3) 2_ 4_ 6_ 8 등 짝수 → 3_ 5_ 7_ 9 등 홀수",
         "is_correct": false
       }
     ],
@@ -8452,13 +8440,21 @@
     "notes": ""
   },
   {
-    "type": "single_answer",
+    "type": "multiple_answers",
     "subject": "조경적산",
     "문제번호": 6,
     "question": "다음은 견적의 중요성을 정리한 것이다. ( ) 안에 알맞은 내용을 쓰시오. • 산출된 견적액(견적가액)은 발주자에게는 적정한 공사예정가격 산출의 (①)이 된다. • 수주자(도급자)에게는 입찰가격 결정과 실행예산 편성의 (②)이 되어 공사의 품질과 (③)에 영향을 미치는 중요한 자료가 된다.",
     "answers": [
       {
-        "part": "①근간 ②기준 ③재산성",
+        "part": "①근간",
+        "is_correct": false
+      },
+      {
+        "part": "②기준",
+        "is_correct": false
+      },
+      {
+        "part": "③재산성",
         "is_correct": false
       }
     ],
@@ -8994,31 +8990,15 @@
     "question": "근린공원 시공비 중 재료비 8천5백만원, 노무비 2천8백만원, 경비 1천8백만원일 때 1) 일반관리비, 2) 이윤 및 3) 총원가를 각각 산출하시오(단, 일반관리비율은 5%, 이윤율은 15%를 적용하시오).",
     "answers": [
       {
-        "part": "1) 일반관리비 : 6",
+        "part": "1) 일반관리비 : 6.550.000원",
         "is_correct": false
       },
       {
-        "part": "550",
+        "part": "2) 이윤 : 7.882.500원",
         "is_correct": false
       },
       {
-        "part": "000원 2) 이윤 : 7",
-        "is_correct": false
-      },
-      {
-        "part": "882",
-        "is_correct": false
-      },
-      {
-        "part": "500원 3) 총원가 : 145",
-        "is_correct": false
-      },
-      {
-        "part": "432",
-        "is_correct": false
-      },
-      {
-        "part": "500원",
+        "part": "3) 총원가 : 145.432.500원",
         "is_correct": false
       }
     ],
@@ -9050,19 +9030,11 @@
     "question": "자연토량 6,000m³를 굴착하였다. 토량변화율 L = 1.15, C = 0.91일 때 물음에 1) 흐트러진 상태의 토량과 2) 다져진 상태의 토량을 구하시오.",
     "answers": [
       {
-        "part": "1) 흐트러진 상태의 토량 : 6",
+        "part": "1) 흐트러진 상태의 토량 : 6900m³",
         "is_correct": false
       },
       {
-        "part": "900m³",
-        "is_correct": false
-      },
-      {
-        "part": "2) 다져진 상태의 토량 : 5",
-        "is_correct": false
-      },
-      {
-        "part": "460m³",
+        "part": "2) 다져진 상태의 토량 : 5460m³",
         "is_correct": false
       }
     ],
