@@ -73,17 +73,21 @@ body {
     transition: background-color 0.3s;
     color: #fff;
     white-space: nowrap;
+    /* flex 아이템으로 사용될 때 유연성 부여 */
+    flex: 1; /* 부모 flex 컨테이너 내에서 공간을 동일하게 차지 */
+    min-width: 120px; /* 버튼의 최소 너비 설정 */
 }
 
 /* 주 버튼 색상 */
 #start-normal-quiz-btn { background-color: #007bff; }
 #start-normal-quiz-btn:hover { background-color: #0056b3; }
 
-/* 보조/일반 버튼 색상 (체크문제 풀기, 메인으로) */
+/* 보조/일반 버튼 색상 (체크문제 풀기, 메인으로 등) */
 #start-checked-quiz-btn, 
 #start-checked-quiz-select-btn,
 .secondary-btn,
 #export-notes-btn,
+#clear-notes-btn, /* 새로 추가된 버튼 */
 #save-notes-btn { 
     background-color: #6c757d; 
 }
@@ -91,6 +95,7 @@ body {
 #start-checked-quiz-select-btn:hover,
 .secondary-btn:hover,
 #export-notes-btn:hover,
+#clear-notes-btn:hover, /* 새로 추가된 버튼 */
 #save-notes-btn:hover { 
     background-color: #5a6268; 
 }
@@ -116,6 +121,16 @@ body {
     padding: 10px 15px;
     font-size: 0.8em;
 }
+
+/* 메인 화면 주의사항 관련 버튼 그룹 */
+.notes-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 버튼이 많아지면 줄바꿈 되도록 */
+    gap: 10px;
+}
+
 
 /* 문제 풀이 화면 스타일 */
 #quiz-container {
@@ -172,13 +187,21 @@ body {
     margin-bottom: 15px;
 }
 
+/* 버튼 재배치 핵심 스타일 */
 .answer-section {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column; /* 버튼 그룹이 세로로 쌓이도록 */
+    align-items: center; /* 가운데 정렬 */
+    gap: 10px; /* 버튼 그룹 사이의 간격 */
     margin: 10px 0;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-evenly; /* 버튼들을 균등하게 배치 */
+    width: 100%; /* 부모 컨테이너의 너비에 맞춤 */
+    max-width: 400px; /* 너무 넓어지지 않도록 최대 너비 설정 */
+    gap: 10px; /* 한 줄 내 버튼들 간의 간격 */
 }
 
 /* 미디어 쿼리: 작은 화면 (예: 스마트폰)에 대한 최적화 */
@@ -192,11 +215,20 @@ body {
         font-size: 1.5em;
     }
     
+    /* 모바일에서는 버튼이 한 줄에 꽉 차도록 */
     .action-btn {
-        width: 100%;
-        margin: 5px 0;
+        width: 100%; /* 버튼이 한 줄에 꽉 차도록 */
+        margin: 5px 0; /* 세로 마진 조정 */
         padding: 10px;
         font-size: 1em;
+        min-width: unset; /* 최소 너비 제한 해제 */
+    }
+
+    /* 모바일에서는 button-row 내 버튼들이 세로로 쌓이도록 */
+    .button-row {
+        flex-direction: column; /* 모바일에서는 세로로 배치 */
+        align-items: stretch; /* 너비 전체를 차지하도록 */
+        gap: 0; /* 버튼 그룹 내 세로 간격 조정 (action-btn의 margin으로 대체) */
     }
 
     .small-btn {
@@ -209,13 +241,15 @@ body {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
     
-    .answer-section {
+    /* answer-section은 button-row를 포함하므로 별도 조정 필요 없음 */
+    /* .answer-section {
         flex-direction: column;
         align-items: stretch;
-    }
+    } */
     
-    .answer-section button {
+    /* .answer-section button은 .action-btn에 통합되었으므로 제거 */
+    /* .answer-section button {
         width: 100%;
         margin: 5px 0;
-    }
+    } */
 }
