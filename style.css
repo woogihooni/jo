@@ -87,7 +87,7 @@ body {
 #start-checked-quiz-select-btn,
 .secondary-btn,
 #export-notes-btn,
-#clear-notes-btn, /* 새로 추가된 버튼 */
+#clear-notes-btn, 
 #save-notes-btn { 
     background-color: #6c757d; 
 }
@@ -95,7 +95,7 @@ body {
 #start-checked-quiz-select-btn:hover,
 .secondary-btn:hover,
 #export-notes-btn:hover,
-#clear-notes-btn:hover, /* 새로 추가된 버튼 */
+#clear-notes-btn:hover, 
 #save-notes-btn:hover { 
     background-color: #5a6268; 
 }
@@ -127,7 +127,7 @@ body {
     margin-top: 20px;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* 버튼이 많아지면 줄바꿈 되도록 */
+    flex-wrap: wrap;
     gap: 10px;
 }
 
@@ -190,18 +190,18 @@ body {
 /* 버튼 재배치 핵심 스타일 */
 .answer-section {
     display: flex;
-    flex-direction: column; /* 버튼 그룹이 세로로 쌓이도록 */
-    align-items: center; /* 가운데 정렬 */
-    gap: 10px; /* 버튼 그룹 사이의 간격 */
+    flex-direction: column; 
+    align-items: center;
+    gap: 10px; 
     margin: 10px 0;
 }
 
 .button-row {
     display: flex;
-    justify-content: space-evenly; /* 버튼들을 균등하게 배치 */
-    width: 100%; /* 부모 컨테이너의 너비에 맞춤 */
-    max-width: 400px; /* 너무 넓어지지 않도록 최대 너비 설정 */
-    gap: 10px; /* 한 줄 내 버튼들 간의 간격 */
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 400px;
+    gap: 10px;
 }
 
 /* 미디어 쿼리: 작은 화면 (예: 스마트폰)에 대한 최적화 */
@@ -215,20 +215,25 @@ body {
         font-size: 1.5em;
     }
     
-    /* 모바일에서는 버튼이 한 줄에 꽉 차도록 */
     .action-btn {
-        width: 100%; /* 버튼이 한 줄에 꽉 차도록 */
-        margin: 5px 0; /* 세로 마진 조정 */
+        width: 100%;
+        margin: 5px 0;
         padding: 10px;
         font-size: 1em;
-        min-width: unset; /* 최소 너비 제한 해제 */
+        min-width: unset;
     }
 
-    /* 모바일에서는 button-row 내 버튼들이 세로로 쌓이도록 */
+    /* 모바일에서 버튼들이 한 줄에 배치되도록 수정 */
     .button-row {
-        flex-direction: column; /* 모바일에서는 세로로 배치 */
-        align-items: stretch; /* 너비 전체를 차지하도록 */
-        gap: 0; /* 버튼 그룹 내 세로 간격 조정 (action-btn의 margin으로 대체) */
+        flex-direction: row; /* 세로가 아닌 가로로 배치 */
+        flex-wrap: wrap; /* 공간이 부족하면 자동으로 줄바꿈 */
+        justify-content: center; /* 가운데 정렬 */
+    }
+
+    /* .answer-section 내 button-row의 버튼들에 flex: 1을 적용하여 너비 분할 */
+    .answer-section .button-row .action-btn {
+        flex: 1 1 45%; /* 버튼이 한 줄에 2개씩 배치되도록 너비 조정 */
+        max-width: 48%; /* 최대 너비로 버튼 간 간격 확보 */
     }
 
     .small-btn {
@@ -240,16 +245,4 @@ body {
     .subject-grid {
         grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     }
-    
-    /* answer-section은 button-row를 포함하므로 별도 조정 필요 없음 */
-    /* .answer-section {
-        flex-direction: column;
-        align-items: stretch;
-    } */
-    
-    /* .answer-section button은 .action-btn에 통합되었으므로 제거 */
-    /* .answer-section button {
-        width: 100%;
-        margin: 5px 0;
-    } */
 }
