@@ -152,10 +152,11 @@ body {
     background-color: #2c2c2c;
     border-radius: 8px;
     /* 정답 영역 높이를 충분히 확보 */
-    min-height: 60px; 
+    min-height: 100px; 
     text-align: left;
     transition: background-color 0.5s;
     font-size: 0.9em;
+    width: 100%; /* 너비를 100%로 설정하여 부모의 공간을 모두 차지 */
 }
 
 .notes-section {
@@ -189,7 +190,7 @@ body {
 .answer-section {
     display: flex;
     flex-direction: column; 
-    align-items: center;
+    align-items: stretch; /* 하위 요소들이 부모의 너비를 가득 채우도록 변경 */
     gap: 10px; 
     margin: 10px 0;
 }
