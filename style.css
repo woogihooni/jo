@@ -73,9 +73,15 @@ body {
     transition: background-color 0.3s;
     color: #fff;
     white-space: nowrap;
-    /* flex 아이템으로 사용될 때 유연성 부여 */
     flex: 1; 
     min-width: 120px; 
+}
+
+/* 🛠️ 수정: 비활성화 버튼 스타일 */
+.action-btn:disabled {
+    background-color: #6c757d; /* 회색 배경색 */
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 /* 주 버튼 색상 */
@@ -194,6 +200,7 @@ body {
     margin: 10px 0;
 }
 
+/* 버튼이 2줄로 배치되도록 명확히 정의 */
 .button-row {
     display: flex;
     justify-content: center;
@@ -201,8 +208,6 @@ body {
     max-width: 400px;
     gap: 10px;
     flex-wrap: wrap;
-    /* 🛠️ 수정: 버튼 영역의 최소 높이 고정 */
-    min-height: 50px; /* 버튼 한 줄 높이 + 여유 공간 */
 }
 
 /* 미디어 쿼리: 작은 화면 (예: 스마트폰)에 대한 최적화 */
@@ -221,7 +226,6 @@ body {
         flex-direction: row; 
         justify-content: space-between;
         gap: 10px;
-        min-height: 100px; /* 버튼 두 줄이 들어갈 공간 확보 */
     }
 
     .button-row .action-btn {

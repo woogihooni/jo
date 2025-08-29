@@ -171,10 +171,10 @@ function displayQuestion() {
     questionTextEl.innerHTML = question.question;
     answerArea.innerHTML = '';
     
-    // 🛠️ 수정: 정답보기/본문복사 버튼 표시
+    // 🛠️ 수정: 정답보기 버튼 활성화
+    showAnswerBtn.disabled = false;
     showAnswerBtn.style.display = 'block';
-    nextQuestionBtn.style.display = 'none';
-    copyProblemBtn.style.display = 'block';
+    nextQuestionBtn.style.display = 'block';
     
     notesInput.value = savedNotes[qId] || '';
 
@@ -182,17 +182,18 @@ function displayQuestion() {
 
     checkProblemBox.checked = checkedProblems[qId] !== undefined;
 
-    // 🛠️ 수정: 이전/다음 버튼 활성화/비활성화
+    // 🛠️ 수정: 이전 문제 버튼 활성화/비활성화
     if (currentQuestionIndex === 0) {
-        prevQuestionBtn.style.display = 'none';
+        prevQuestionBtn.disabled = true;
     } else {
-        prevQuestionBtn.style.display = 'inline-block';
+        prevQuestionBtn.disabled = false;
     }
     
-    if (currentQuestionIndex === currentQuestions.length -1) {
-      nextQuestionBtn.textContent = "퀴즈 종료";
+    // 다음 문제 버튼 텍스트 변경
+    if (currentQuestionIndex === currentQuestions.length - 1) {
+        nextQuestionBtn.textContent = "퀴즈 종료";
     } else {
-      nextQuestionBtn.textContent = "다음 문제";
+        nextQuestionBtn.textContent = "다음 문제";
     }
 
     const lastQuizData = { subject: question.subject, questionNumber: question.문제번호 };
@@ -217,9 +218,8 @@ function showAnswer() {
 
         question.answers_shown_count++;
         if (question.answers_shown_count === question.answers.length) {
-            // 🛠️ 수정: 정답을 모두 보여준 후 정답보기 버튼 숨기기
-            showAnswerBtn.style.display = 'none';
-            nextQuestionBtn.style.display = 'block';
+            // 🛠️ 수정: 정답을 모두 보여준 후 정답보기 버튼 비활성화
+            showAnswerBtn.disabled = true;
         }
     }
 }
@@ -295,7 +295,7 @@ copyProblemBtn.addEventListener('click', async () => {
     let contentToCopy = `[${question.subject} - 문제 ${question.문제번호}]`;
     contentToCopy += `\n${problem_text}\n\n`;
     
-    if (showAnswerBtn.style.display === 'none') {
+    if (showAnswerBtn.disabled) {
         const answers = question.answers.map(ans => ans.part).join(', ');
         contentToCopy += `정답: ${answers}`;
     }
