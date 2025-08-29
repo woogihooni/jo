@@ -19,7 +19,7 @@ const clearNotesBtn = document.getElementById('clear-notes-btn');
 
 const startCheckedQuizSelectBtn = document.getElementById('start-checked-quiz-select-btn');
 const resumeCheckedQuizBtn = document.getElementById('resume-checked-quiz-btn');
-const backToMainBtn = document.getElementById('back-to-main-btn');
+const backToMainBtn = document = document.getElementById('back-to-main-btn');
 
 const goHomeBtn = document.getElementById('go-home-btn');
 
@@ -69,6 +69,9 @@ function loadSubjectSelection() {
         </label>
     `).join('');
 
+    // 로컬 스토리지 데이터 다시 불러오기
+    lastNormalQuiz = JSON.parse(localStorage.getItem('last-normal-quiz')) || null;
+
     if (lastNormalQuiz) {
         resumeQuizBtn.style.display = 'inline-block';
         resumeQuizBtn.textContent = `마지막 문제 이어 풀기(${lastNormalQuiz.subject}, ${lastNormalQuiz.questionNumber})`;
@@ -97,6 +100,9 @@ function loadCheckedSubjectSelection() {
         `).join('');
         startCheckedQuizSelectBtn.style.display = 'inline-block';
         
+        // 로컬 스토리지 데이터 다시 불러오기
+        lastCheckedQuiz = JSON.parse(localStorage.getItem('last-checked-quiz')) || null;
+
         if (lastCheckedQuiz) {
             resumeCheckedQuizBtn.style.display = 'inline-block';
             resumeCheckedQuizBtn.textContent = `마지막 체크문제 이어 풀기(${lastCheckedQuiz.subject}, ${lastCheckedQuiz.questionNumber})`;
@@ -179,9 +185,9 @@ function displayQuestion() {
     }
 
     const lastQuizData = { subject: question.subject, questionNumber: question.문제번호 };
-    if (currentQuizMode === 'normal') {
+    if (currentQuizMode === 'normal' || currentQuizMode === 'resume-normal') {
         localStorage.setItem('last-normal-quiz', JSON.stringify(lastQuizData));
-    } else {
+    } else if (currentQuizMode === 'checked' || currentQuizMode === 'resume-checked') {
         localStorage.setItem('last-checked-quiz', JSON.stringify(lastQuizData));
     }
 }
@@ -291,7 +297,6 @@ copyProblemBtn.addEventListener('click', async () => {
     }
 });
 
-// ✅ 개선: 주의사항을 클립보드에 복사하는 기능으로 변경
 exportNotesBtn.addEventListener('click', async () => {
     if (Object.keys(savedNotes).length === 0) {
         alert('저장된 주의사항이 없습니다.');
@@ -307,7 +312,6 @@ exportNotesBtn.addEventListener('click', async () => {
     }
 });
 
-// ✅ 개선: 주의사항을 로컬 스토리지에서 삭제하는 기능 추가
 clearNotesBtn.addEventListener('click', () => {
     if (Object.keys(savedNotes).length === 0) {
         alert('삭제할 주의사항이 없습니다.');
@@ -316,7 +320,7 @@ clearNotesBtn.addEventListener('click', () => {
     const confirmClear = confirm('주의사항을 모두 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.');
     if (confirmClear) {
         localStorage.removeItem('saved-notes');
-        savedNotes = {}; // 메모리상의 변수도 초기화
+        savedNotes = {};
         alert('주의사항이 모두 삭제되었습니다.');
     }
 });
