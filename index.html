@@ -3,70 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문제 풀이 앱</title>
+    <title>문제풀이 앱</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
-    <div id="subject-selection-screen" class="container">
-        <h1 class="main-title">문제 풀이 앱</h1>
-        <h2 class="sub-title">과목을 선택해주세요</h2>
-        <div id="subject-list" class="subject-grid">
-            </div>
-        <button id="start-normal-quiz-btn" class="action-btn">문제풀기 (선택과목)</button>
-        <button id="start-checked-quiz-btn" class="action-btn secondary-btn">체크문제 풀기</button>
-        <button id="resume-quiz-btn" class="action-btn" style="display:none;">마지막 문제 이어 풀기</button>
-        
-        <div class="notes-actions">
-            <button id="export-notes-btn" class="action-btn small-btn">주의사항 복사</button>
-            <button id="clear-notes-btn" class="action-btn small-btn secondary-btn">주의사항 전체 삭제</button>
+
+<div class="container">
+    <div id="subject-selection-screen">
+        <h1 class="main-title">문제 과목 선택</h1>
+        <div id="subject-list" class="subject-grid"></div>
+        <div class="button-row">
+            <button id="start-normal-quiz-btn" class="action-btn">일반 문제 풀기</button>
+            <button id="start-checked-quiz-btn" class="action-btn">체크 문제 풀기</button>
+        </div>
+        <div class="button-row">
+            <button id="resume-quiz-btn" class="action-btn">마지막 문제 이어 풀기</button>
+        </div>
+        <div class="button-row">
+            <button id="export-notes-btn" class="action-btn secondary-btn">주의사항 클립보드 복사</button>
+            <button id="clear-notes-btn" class="action-btn secondary-btn">주의사항 전체 삭제</button>
         </div>
     </div>
 
-    <div id="checked-subject-screen" class="container" style="display: none;">
-        <h1 class="main-title">체크문제 풀이</h1>
-        <h2 class="sub-title">과목을 선택해주세요</h2>
-        <div id="checked-subject-list" class="subject-grid">
-            </div>
-        <button id="start-checked-quiz-select-btn" class="action-btn">문제풀기 (선택과목)</button>
-        <button id="resume-checked-quiz-btn" class="action-btn" style="display:none;">마지막 체크문제 이어 풀기</button>
+    <div id="checked-subject-screen" style="display:none;">
+        <h1 class="main-title">체크 문제 과목 선택</h1>
+        <div id="checked-subject-list" class="subject-grid"></div>
+        <div class="button-row">
+            <button id="start-checked-quiz-select-btn" class="action-btn">선택 과목 체크 문제 풀기</button>
+            <button id="resume-checked-quiz-btn" class="action-btn">마지막 체크 문제 이어 풀기</button>
+        </div>
         <button id="back-to-main-btn" class="action-btn secondary-btn">메인으로</button>
     </div>
 
-    <div id="quiz-container" class="container" style="display: none;">
-        <h2 id="current-subject-title"></h2>
-        <h3 id="question-number"></h3>
-        <p id="question-text" class="question-text"></p>
-        
+    <div id="quiz-container" style="display:none;">
+        <h2 id="current-subject-title" class="sub-title"></h2>
         <div class="problem-options">
             <label>
-                <input type="checkbox" id="check-problem-box"> 어려운 문제 체크하기
+                <input type="checkbox" id="check-problem-box"> 문제 체크
             </label>
+            <span id="question-number"></span>
         </div>
-
+        <div class="question-text" id="question-text"></div>
         <div class="answer-section">
-            <div id="answer-area" class="answer-area"></div>
-            
+            <div class="answer-area" id="answer-area"></div>
             <div class="button-row">
-                <button id="prev-question-btn" class="action-btn" style="display:none;">이전 문제</button>
-                <button id="next-question-btn" class="action-btn" style="display: none;">다음 문제</button>
+                <button id="prev-question-btn" class="action-btn">이전 문제</button>
+                <button id="next-question-btn" class="action-btn">다음 문제</button>
             </div>
             <div class="button-row">
                 <button id="show-answer-btn" class="action-btn">정답 보기</button>
                 <button id="copy-problem-btn" class="action-btn">본문 복사</button>
             </div>
         </div>
-
         <div class="notes-section">
-            <h3>주의사항 기록</h3>
-            <textarea id="notes-input" placeholder="여기에 내용을 기록하세요"></textarea>
-            <div style="margin-top: 10px;">
-                <button id="save-notes-btn" class="action-btn small-btn">임시 저장</button>
+            <h3>나만의 주의사항</h3>
+            <textarea id="notes-input" placeholder="이 문제에 대한 주의사항을 작성하세요."></textarea>
+            <div class="button-row">
+                <button id="save-notes-btn" class="action-btn secondary-btn">주의사항 저장</button>
+                <button id="go-home-btn" class="action-btn secondary-btn">홈으로 돌아가기</button>
             </div>
         </div>
-        <button id="go-home-btn" class="action-btn secondary-btn" style="margin-top: 20px;">홈으로 돌아가기</button>
     </div>
+</div>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>

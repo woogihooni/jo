@@ -173,8 +173,6 @@ function displayQuestion() {
     
     // 🛠️ 수정: 정답보기 버튼 활성화
     showAnswerBtn.disabled = false;
-    showAnswerBtn.style.display = 'block';
-    nextQuestionBtn.style.display = 'block';
     
     notesInput.value = savedNotes[qId] || '';
 
