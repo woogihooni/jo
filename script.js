@@ -19,7 +19,7 @@ const clearNotesBtn = document.getElementById('clear-notes-btn');
 
 const startCheckedQuizSelectBtn = document.getElementById('start-checked-quiz-select-btn');
 const resumeCheckedQuizBtn = document.getElementById('resume-checked-quiz-btn');
-const backToMainBtn = document = document.getElementById('back-to-main-btn');
+const backToMainBtn = document.getElementById('back-to-main-btn');
 
 const goHomeBtn = document.getElementById('go-home-btn');
 
@@ -167,21 +167,32 @@ function displayQuestion() {
     const qId = `${question.subject}-${question.문제번호}`;
 
     currentSubjectTitle.textContent = question.subject;
-    questionNumberEl.textContent = `문제 ${question.문제번호}`;
+    questionNumberEl.textContent = `문제 ${currentQuestionIndex + 1}/${currentQuestions.length}`;
     questionTextEl.innerHTML = question.question;
     answerArea.innerHTML = '';
+    
+    // 🛠️ 수정: 정답보기/본문복사 버튼 표시
     showAnswerBtn.style.display = 'block';
     nextQuestionBtn.style.display = 'none';
+    copyProblemBtn.style.display = 'block';
+    
     notesInput.value = savedNotes[qId] || '';
 
     question.answers_shown_count = 0;
 
     checkProblemBox.checked = checkedProblems[qId] !== undefined;
 
+    // 🛠️ 수정: 이전/다음 버튼 활성화/비활성화
     if (currentQuestionIndex === 0) {
         prevQuestionBtn.style.display = 'none';
     } else {
         prevQuestionBtn.style.display = 'inline-block';
+    }
+    
+    if (currentQuestionIndex === currentQuestions.length -1) {
+      nextQuestionBtn.textContent = "퀴즈 종료";
+    } else {
+      nextQuestionBtn.textContent = "다음 문제";
     }
 
     const lastQuizData = { subject: question.subject, questionNumber: question.문제번호 };
@@ -206,6 +217,7 @@ function showAnswer() {
 
         question.answers_shown_count++;
         if (question.answers_shown_count === question.answers.length) {
+            // 🛠️ 수정: 정답을 모두 보여준 후 정답보기 버튼 숨기기
             showAnswerBtn.style.display = 'none';
             nextQuestionBtn.style.display = 'block';
         }

@@ -151,12 +151,11 @@ body {
     padding: 10px;
     background-color: #2c2c2c;
     border-radius: 8px;
-    /* 정답 영역 높이를 충분히 확보 */
     min-height: 100px; 
     text-align: left;
     transition: background-color 0.5s;
     font-size: 0.9em;
-    width: 100%; /* 너비를 100%로 설정하여 부모의 공간을 모두 차지 */
+    width: 100%;
 }
 
 .notes-section {
@@ -190,18 +189,20 @@ body {
 .answer-section {
     display: flex;
     flex-direction: column; 
-    align-items: stretch; /* 하위 요소들이 부모의 너비를 가득 채우도록 변경 */
+    align-items: stretch;
     gap: 10px; 
     margin: 10px 0;
 }
 
 .button-row {
     display: flex;
-    justify-content: center; /* 버튼들을 중앙 정렬 */
+    justify-content: center;
     width: 100%;
     max-width: 400px;
     gap: 10px;
-    flex-wrap: wrap; /* 공간이 부족하면 자동으로 줄바꿈 */
+    flex-wrap: wrap;
+    /* 🛠️ 수정: 버튼 영역의 최소 높이 고정 */
+    min-height: 50px; /* 버튼 한 줄 높이 + 여유 공간 */
 }
 
 /* 미디어 쿼리: 작은 화면 (예: 스마트폰)에 대한 최적화 */
@@ -218,13 +219,14 @@ body {
     /* 모바일에서 버튼이 한 줄에 2개씩 배치되도록 수정 */
     .button-row {
         flex-direction: row; 
-        justify-content: space-between; /* 양 끝 정렬 */
+        justify-content: space-between;
         gap: 10px;
+        min-height: 100px; /* 버튼 두 줄이 들어갈 공간 확보 */
     }
 
     .button-row .action-btn {
-        flex: 1 1 45%; /* 버튼이 한 줄에 2개씩 배치되도록 너비 조정 */
-        margin: 0; /* 불필요한 마진 제거 */
+        flex: 1 1 45%;
+        margin: 0;
     }
 
     .small-btn {
